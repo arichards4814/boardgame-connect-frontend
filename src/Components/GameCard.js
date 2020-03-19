@@ -49,15 +49,17 @@ export default function GameCard(props) {
         setExpanded(!expanded);
     };
 
-    const { images, name, description, description_preview, image_url, year_published } = props
+    const { id, images, name, description, description_preview, image_url, year_published } = props
     console.log(props)
 
     let tinyDescription = description_preview.slice(0, 150)
     tinyDescription = `${tinyDescription}...`
     let firstLetter = name.slice(0, 1)
 
-    const heartHandler = () => {
+    const heartHandler = (id) => {
         setHearted(!hearted)
+        props.addToChosen(id)
+        //pass in the id here and have it run a function one level up
     }
 
     return (
@@ -89,7 +91,7 @@ export default function GameCard(props) {
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
-                    {hearted ? <FavoriteIcon onClick={heartHandler} /> : <FavoriteBorder onClick={heartHandler} />}
+                    {hearted ? <FavoriteIcon onClick={() => heartHandler(id)} /> : <FavoriteBorder onClick={() => heartHandler(id)} />}
                 </IconButton>
                 <IconButton aria-label="share">
                     <ShareIcon />

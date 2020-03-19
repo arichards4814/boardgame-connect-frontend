@@ -10,6 +10,8 @@ import Search from '../Components/Search'
 import fetchCatan from '../requests'
 import ChosenGames from '../Components/ChosenGames'
 import Typography from '@material-ui/core/Typography';
+import SearchIcon from '@material-ui/icons/Search';
+import TinyGameCard from '../Components/TinyGameCard'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -35,7 +37,7 @@ export default function GamesContainer(props) {
     const renderGames = () => {
         let sixGames = games.slice(indexOfSearch, indexOfSearch + 6)
 
-        return sixGames.map(game => <Grid item mdclassName={classes.control} ><GameCard key={game.id} {...game} /></Grid>)
+        return sixGames.map(game => <Grid item mdclassName={classes.control} ><GameCard key={game.id} {...game} addToChosen={addToChosen}/></Grid>)
     }
 
     const nextIndex = () => {
@@ -64,24 +66,29 @@ export default function GamesContainer(props) {
     }
 
     const addToChosen = (id) => {
-        console.log("Chosen Game", id)
+        //make a copy
+        //find the index by id
+        //add {chosen: true} or if it is true make it false
+        let gamesCopy = [...games]
+        let gameIndex = gamesCopy.findIndex(game => game.id === id)
+        { gamesCopy[gameIndex]['chosen'] ? gamesCopy[gameIndex]['chosen'] = !gamesCopy[gameIndex]['chosen'] : gamesCopy[gameIndex]['chosen'] = true }
+        setGames(gamesCopy)
     }
 
 
     return (
         <div>
-            
             <Grid container >
                 <Grid tile md={1} style={{ textAlign: "center" }}>
                 </Grid>
                 <Grid tile md={3} style={{textAlign: "center"}}>
                     <Paper style={{ padding: 10 }}>
-                        <Search search={search} handleChange={handleChange} handleSubmit={handleSubmit} />
+                        <Search search={search} handleChange={handleChange} handleSubmit={handleSubmit} /><SearchIcon style={{fontSize: 30, margin: 10}}></SearchIcon>
                     </Paper>
                 </Grid>
                 <Grid tile md={6} style={{ textAlign: "center" }}>
                     <Paper style={{ padding: 10 }}>
-                        <ChosenGames />
+                        <ChosenGames games={games}/>
                     </Paper>
                 </Grid>
             </Grid>
@@ -92,10 +99,9 @@ export default function GamesContainer(props) {
                 {games.length > 0 && <Typography variant="subtitle1" component="h2">Viewing: {indexOfSearch} - {indexOfSearch + 6} out of {games.length}</Typography>}
                 
                 <Grid className={classes.root} container spacing={3}>
-                    {
-                        renderGames()
-                    }
+                    {games.length > 0 ? renderGames() : <div></div>}
                 </Grid>
+                
             </Paper></div>)
 }
 
