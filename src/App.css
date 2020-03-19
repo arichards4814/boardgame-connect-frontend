@@ -41,3 +41,18 @@
 .main-logo{
   width: 400px
 }
+
+h1, h2, h3, h4, h5 ,h6 {
+  font-family: 'Titillium Web', sans-serif
+}
+
+.home-div {
+  margin-left: 5%;
+}
+
+.homes-games-collection {
+  border: solid;
+  width: 50vw;
+  height: 10vw;
+  margin-bottom: 5%;
+}
