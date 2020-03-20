@@ -49,23 +49,19 @@ export default function Signup(props){
             <Container maxWidth="sm" >
                 <Paper style={{ marginTop: 20}}>
                     <Typography component="div" style={{ margin: 10, height: '90vh', textAlign: "center"}}>
-                       
                         <div style={{textAlign: "center"}}>
                             <img src={"./images/Logo_BW.png"} className="main-logo" />
                         </div>
                         <Typography variant="h4" component="h2">
                             Welcome to the Board Room
                         </Typography>
-                        <Typography variant="h6" component="h2">
+                        <Typography variant="h5" component="h2">
                             First, let's set up your account:
                         </Typography>
-                        <Typography variant="h4" component="h2">
-                            Step One
+                        <Typography variant="h6" component="h2">
+                            Or login with Google or Facebook
                         </Typography>
-                        <Typography variant="h5" component="h2">
-                            Login with Google or Facebook
-                        </Typography>
-                        <GoogleLoginButton />
+                        {/* <GoogleLoginButton /> */}
                         <Button onClick={() => props.history.push("/login")} variant="contained" color="default" style={{ margin: 5}}>Login</Button> 
                         <form onSubmit={handleSubmit} noValidate autoComplete="off">
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="username"/>
