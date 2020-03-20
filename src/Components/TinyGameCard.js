@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
 
 function TinyGameCard(props) {
+
+    console.log("props", props)
     return (
         <div>
             <Paper>

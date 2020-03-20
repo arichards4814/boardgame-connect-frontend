@@ -9,8 +9,23 @@ export default function ChosenGames(props) {
 
 
     const renderTinyCards = () => {
-        let chosenGames = props.games.filter(game => game.chosen === true)
-        return chosenGames.map(game => <TinyGameCard {...game}/>)
+        return props.games.map(game => <TinyGameCard {...game}/>)
+    }
+
+    const addChosenGamesToDatabase = () => {
+        
+        props.games.forEach(game => {
+
+            fetch('http://localhost:3000/boardgames', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify(game)
+            })
+        })
+
     }
     
     return (
@@ -18,7 +33,7 @@ export default function ChosenGames(props) {
             <Grid style={{ height: 100, overflow: "scroll", padding: 2}}>
                 {renderTinyCards()}
             </Grid>
-            <Button variant="contained" color="primary" onClick={props.handleSubmit}>Add Games to Collection</Button>
+            <Button variant="contained" color="primary" onClick={addChosenGamesToDatabase}>Add Games to Collection</Button>
         </div>
     );
 }

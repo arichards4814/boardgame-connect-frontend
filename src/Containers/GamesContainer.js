@@ -32,6 +32,7 @@ export default function GamesContainer(props) {
     const classes = useStyles();
     const [games, setGames] = React.useState([])
     const [search, setSearch] = React.useState("")
+    const [chosenGames, setChosenGames] = React.useState([])
 
     const renderGames = () => {
         let sixGames = games.slice(indexOfSearch, indexOfSearch + 6)
@@ -69,9 +70,12 @@ export default function GamesContainer(props) {
         //find the index by id
         //add {chosen: true} or if it is true make it false
         let gamesCopy = [...games]
-        let gameIndex = gamesCopy.findIndex(game => game.id === id)
-        { gamesCopy[gameIndex]['chosen'] ? gamesCopy[gameIndex]['chosen'] = !gamesCopy[gameIndex]['chosen'] : gamesCopy[gameIndex]['chosen'] = true }
-        setGames(gamesCopy)
+        let gameCopy = gamesCopy.find(game => game.id === id)
+        console.log("test", gameCopy)
+        let chosenGamesCopy = [...chosenGames]
+        chosenGamesCopy.push(gameCopy)
+        console.log(chosenGamesCopy)
+        setChosenGames(chosenGamesCopy)
     }
 
 
@@ -87,7 +91,7 @@ export default function GamesContainer(props) {
                 </Grid>
                 <Grid tile md={6} style={{ textAlign: "center"}}>
                     <Paper className={classes.paper} style={{ padding: 10 }}>
-                        <ChosenGames games={games}/>
+                        <ChosenGames games={chosenGames}/>
                     </Paper>
                 </Grid>
             </Grid>
