@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
+import GoogleLoginButton from '../Components/GoogleLogin'
 
 
 
@@ -41,6 +42,7 @@ export default function Signup(props){
         });
     }
 
+
     return(
         <React.Fragment>
             <CssBaseline />
@@ -63,6 +65,7 @@ export default function Signup(props){
                         <Typography variant="h5" component="h2">
                             Login with Google or Facebook
                         </Typography>
+                        <GoogleLoginButton />
                         <Button onClick={() => props.history.push("/login")} variant="contained" color="default" style={{ margin: 5}}>Login</Button> 
                         <form onSubmit={handleSubmit} noValidate autoComplete="off">
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="username"/>

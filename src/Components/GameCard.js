@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function GameCard(props) {
     const classes = useStyles();
+
     const [expanded, setExpanded] = React.useState(false);
     const [hearted, setHearted] = React.useState(false);
 

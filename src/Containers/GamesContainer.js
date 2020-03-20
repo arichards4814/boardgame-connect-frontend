@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         height: 140,
-        width: 100,
     },
     control: {
         padding: theme.spacing(6),
@@ -86,8 +85,8 @@ export default function GamesContainer(props) {
                         <Search search={search} handleChange={handleChange} handleSubmit={handleSubmit} /><SearchIcon style={{fontSize: 30, margin: 10}}></SearchIcon>
                     </Paper>
                 </Grid>
-                <Grid tile md={6} style={{ textAlign: "center" }}>
-                    <Paper style={{ padding: 10 }}>
+                <Grid tile md={6} style={{ textAlign: "center"}}>
+                    <Paper className={classes.paper} style={{ padding: 10 }}>
                         <ChosenGames games={games}/>
                     </Paper>
                 </Grid>
