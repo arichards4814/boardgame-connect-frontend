@@ -52,9 +52,7 @@ export default function Signup(props) {
                         <div style={{ textAlign: "center" }}>
                             <img src={"./images/Logo_BW.png"} className="main-logo" />
                         </div>
-                        <Typography variant="h4" component="h2">
-                            Welcome to the Board Room
-                        </Typography>
+                        <h1>Welcome to Boardgame Connect</h1>
                         <form onSubmit={handleSubmit} noValidate autoComplete="off">
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="username" />
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Password" name="password" />

@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 //test commit
 
-function App() {
+function App(props) {
   const [userBoardGames, setUserBoardGames] = React.useState([]);
   
 
@@ -36,7 +36,7 @@ function App() {
       <br/>
       <Button variant="contained" color="primary" >+</Button> <h3 style={{ display: "inline-block" }}> Host a Game! </h3> 
       <br/>
-      <Button variant="contained" color="primary" >+</Button> <h3 style={{ display: "inline-block" }}> Add to your board games! </h3> 
+      <Button variant="contained" color="primary" onClick={() => props.history.push("/addgames")}>+</Button> <h3 style={{ display: "inline-block" }}> Add to your board games! </h3> 
       <h5> Games you own: </h5>
       <div className="homes-games-collection">   
         <ul>
