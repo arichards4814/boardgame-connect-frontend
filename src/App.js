@@ -10,9 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 //test commit
 
-
-
-
 function App() {
   const [userBoardGames, setUserBoardGames] = React.useState([]);
   
@@ -20,7 +17,7 @@ function App() {
   // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
     // if the fetch doesnt work check the id, dropping the db changes the ID
-        fetch(`http://localhost:3000/users/3`)
+        fetch(`http://localhost:3000/users/2`)
         .then(response => response.json())
         .then(response => {
           if(userBoardGames.length === 0){
@@ -43,7 +40,7 @@ function App() {
       <h5> Games you own: </h5>
       <div className="homes-games-collection">   
         <ul>
-          {userBoardGames.map( boardgame => 
+          {userBoardGames && userBoardGames.map( boardgame => 
           <span key={boardgame.id}> <img className="home-game-images" src={boardgame.image_url}/>  </span>
           )}
         </ul>

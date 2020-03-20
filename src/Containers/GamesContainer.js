@@ -78,6 +78,10 @@ export default function GamesContainer(props) {
         setChosenGames(chosenGamesCopy)
     }
 
+    const clearChosen = () => {
+        setChosenGames([])
+    }
+
 
     return (
         <div>
@@ -85,13 +89,13 @@ export default function GamesContainer(props) {
                 <Grid tile md={1} style={{ textAlign: "center" }}>
                 </Grid>
                 <Grid tile md={3} style={{textAlign: "center"}}>
-                    <Paper style={{ padding: 10 }}>
+                    <Paper style={{ padding: 10, marginRight: 10}}>
                         <Search search={search} handleChange={handleChange} handleSubmit={handleSubmit} /><SearchIcon style={{fontSize: 30, margin: 10}}></SearchIcon>
                     </Paper>
                 </Grid>
                 <Grid tile md={6} style={{ textAlign: "center"}}>
                     <Paper className={classes.paper} style={{ padding: 10 }}>
-                        <ChosenGames games={chosenGames}/>
+                        <ChosenGames games={chosenGames} clearChosen={clearChosen}/>
                     </Paper>
                 </Grid>
             </Grid>
@@ -100,9 +104,14 @@ export default function GamesContainer(props) {
                 <Button variant="outlined" color="primary" onClick={nextIndex}>Next</Button>
                 
                 {games.length > 0 && <Typography variant="subtitle1" component="h2">Viewing: {indexOfSearch} - {indexOfSearch + 6} out of {games.length}</Typography>}
-                
-                <Grid className={classes.root} container spacing={3}>
-                    {games.length > 0 ? renderGames() : <div></div>}
+                <Grid container>
+                    <Grid item md={1}></Grid>
+                    <Grid item md={11}>
+                        <Grid className={classes.root} container spacing={4}>
+                         {games.length > 0 ? renderGames() : <div></div>}
+                        </Grid>
+                    </Grid>
+                    
                 </Grid>
                 
             </Paper></div>)

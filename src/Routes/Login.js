@@ -47,7 +47,7 @@ export default function Signup(props) {
             <CssBaseline />
             <Container maxWidth="sm" >
                 <Paper style={{ marginTop: 20 }}>
-                    <Typography component="div" style={{ margin: 10, height: '60vh', textAlign: "center" }}>
+                    <Typography component="div" style={{ margin: 10, height: '70vh', textAlign: "center" }}>
 
                         <div style={{ textAlign: "center" }}>
                             <img src={"./images/Logo_BW.png"} className="main-logo" />
