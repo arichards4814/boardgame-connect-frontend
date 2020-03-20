@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +10,27 @@ import { makeStyles } from '@material-ui/core/styles';
 
 //test commit
 
+
+
+
 function App() {
+  const [userBoardGames, setUserBoardGames] = React.useState([]);
+  
+
+  // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+    // if the fetch doesnt work check the id, dropping the db changes the ID
+        fetch(`http://localhost:3000/users/3`)
+        .then(response => response.json())
+        .then(response => {
+          if(userBoardGames.length === 0){
+            console.log(response.boardgames)
+            setUserBoardGames(response.boardgames)
+          }
+        })
+      });
+    
+
   return (
     <div className="home-div">
       <h1> Welcome (USER TO BE FILLED IN AFTER AUTH)</h1> 
@@ -22,7 +42,11 @@ function App() {
       <Button variant="contained" color="primary" >+</Button> <h3 style={{ display: "inline-block" }}> Add to your board games! </h3> 
       <h5> Games you own: </h5>
       <div className="homes-games-collection">   
-      
+        <ul>
+          {userBoardGames.map( boardgame => 
+          <span key={boardgame.id}> <img className="home-game-images" src={boardgame.image_url}/>  </span>
+          )}
+        </ul>
       </div>
     </div>
   );
