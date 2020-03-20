@@ -50,6 +50,10 @@ h1, h2, h3, h4, h5 ,h6 {
   margin-left: 5%;
 }
 
+.open-gameroom-div {
+  margin-left: 5%;
+}
+
 .homes-games-collection {
   border: solid;
   width: 50vw;
@@ -61,4 +65,12 @@ h1, h2, h3, h4, h5 ,h6 {
   width: 8vw;
   height: 8vw;
   margin-right: 5%;
+}
+
+#open-game-room-h5 {
+  margin-top: 0%
+}
+
+#open-game-room-h1 {
+  margin-bottom: 0%
 }

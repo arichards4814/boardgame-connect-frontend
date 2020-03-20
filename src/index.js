@@ -5,6 +5,7 @@ import App from './App';
 import Signup from './Routes/Signup'
 import Login from './Routes/Login'
 import AddGames from './Routes/AddGames'
+import OpenGameRooms from './Routes/OpenGameRooms'
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
     <Route path="/addgames" component={AddGames} />
+    <Route path="/opengamerooms" component={OpenGameRooms} />
 </Router>, 
     document.getElementById('root'));
 
