@@ -62,8 +62,8 @@ h1, h2, h3, h4, h5 ,h6 {
 /* needs to be fixed from hard coded height */
 .homes-games-collection {
   border: solid;
-  width: 500px;
-  height: 200px;
+  width: 100%;
+  height: 10%;
   margin-bottom: 5%;
 }
 

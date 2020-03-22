@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles';
-import HomeIcon from '@material-ui/icons/Home';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,8 +49,8 @@ function OpenGameRooms(props) {
 
 
     return (
-      <div>
-        <AppBar position="static">
+    <div>
+      <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
@@ -62,7 +62,6 @@ function OpenGameRooms(props) {
         </Toolbar>
       </AppBar>
       <Container maxWidth="sm" >
-        <div className="open-gameroom-div">
            <h1 id="open-game-room-h1">Open game rooms</h1>
            <h5 id="open-game-room-h5">Based on the boardgames you own:</h5>
            {boardgames.map( game => 
@@ -71,7 +70,7 @@ function OpenGameRooms(props) {
                 <div className="homes-games-collection">
                     {game.rooms.map( room => 
                     <div>   
-                        <h4 className="margin-left-5"> Room Name: {room.name}</h4>
+                        {room.name.length ?  <h4 className="margin-left-5"> Room Name: {room.name}</h4> : <h4> No Rooms yet! </h4>}
                         <h6 className="zoom-url"> Zoom url: {room.zoom_url} </h6> 
                         <h5 className="margin-left-5"> Users:</h5>
                         <ul> 
@@ -82,7 +81,6 @@ function OpenGameRooms(props) {
                 </div>  
             </div>
           )}
-        </div>
       </Container>
     </div>
     );
