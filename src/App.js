@@ -70,7 +70,7 @@ function App(props) {
           <div className="homes-games-collection">   
             <ul>
               {userBoardGames && userBoardGames.map( boardgame => 
-              <span key={boardgame.id}> <img className="home-game-images" src={boardgame.image_url}/>  </span>
+              <span key={boardgame.id}> <img id="home-game-images" src={boardgame.image_url}/>  </span>
               )}
             </ul>
           </div>

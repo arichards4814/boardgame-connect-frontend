@@ -68,16 +68,19 @@ function OpenGameRooms(props) {
             <div key={game.id}> 
               <h2>{game.name}:</h2>
                 <div className="homes-games-collection">
-                    {game.rooms.map( room => 
+                    {game.rooms.length > 0 ? game.rooms.map( room => 
                     <div>   
-                        {room.name.length ?  <h4 className="margin-left-5"> Room Name: {room.name}</h4> : <h4> No Rooms yet! </h4>}
+                        {<h4 className="margin-left-5"> Room Name: {room.name}</h4>}
                         <h6 className="zoom-url"> Zoom url: {room.zoom_url} </h6> 
                         <h5 className="margin-left-5"> Users:</h5>
                         <ul> 
                             {(fetchedRooms.find(fetchRoom => fetchRoom.id == room.id)).users.map( user => <h6 className="user-list" key={user.id}> {user.name} </h6> )}
                         </ul>
-                    </div>
-                    )}
+                    </div> )
+                    :
+                    <div>
+                      {<h4 id="no-room-active-text"> No Rooms yet!</h4>}
+                    </div>}
                 </div>  
             </div>
           )}
