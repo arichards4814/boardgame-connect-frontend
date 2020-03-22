@@ -8,6 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +24,23 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
 }));
+
+const useStylesCard = makeStyles({
+  root: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
 
 function OpenGameRooms(props) {
     const classes = useStyles();
@@ -64,29 +85,31 @@ function OpenGameRooms(props) {
       <Container maxWidth="sm" >
            <h1 id="open-game-room-h1">Open game rooms</h1>
            <h5 id="open-game-room-h5">Based on the boardgames you own:</h5>
-           {boardgames.map( game => 
-            <div key={game.id}> 
+            {boardgames.map( game => 
+              <div key={game.id}> 
               <h2>{game.name}:</h2>
-                <div className="homes-games-collection">
                     {game.rooms.length > 0 ? game.rooms.map( room => 
-                    <div>   
+                    <Card variant="outlined" className="game-room-card">
+                      <CardContent>
                         {<h4 className="margin-left-5"> Room Name: {room.name}</h4>}
                         <h6 className="zoom-url"> Zoom url: {room.zoom_url} </h6> 
                         <h5 className="margin-left-5"> Users:</h5>
                         <ul> 
-                            {(fetchedRooms.find(fetchRoom => fetchRoom.id == room.id)).users.map( user => <h6 className="user-list" key={user.id}> {user.name} </h6> )}
+                            {/* {(fetchedRooms.find(fetchRoom => fetchRoom.id == room.id)).users.map( user => <h6 className="user-list" key={user.id}> {user.name} </h6> )} */}
                         </ul>
-                    </div> )
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">Learn More</Button>
+                      </CardActions>
+                    </Card>)
                     :
-                    <div>
+                    <Card variant="outlined" className="game-room-card">
                       {<h4 id="no-room-active-text"> No Rooms yet!</h4>}
-                    </div>}
-                </div>  
-            </div>
-          )}
+                    </Card>
+                    }
+            </div>)}
       </Container>
-    </div>
-    );
+ </div>
+  );
 }
-
 export default OpenGameRooms;
