@@ -1,52 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import './index.css';
+import './App.css'
+import Home from './Routes/Home'
+import Signup from './Routes/Signup'
+import Login from './Routes/Login'
+import AddGames from './Routes/AddGames'
+import OpenGameRooms from './Routes/OpenGameRooms'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-//test commit
+class App extends React.Component {
 
-function App(props) {
-  const [userBoardGames, setUserBoardGames] = React.useState([]);
-  
-
-  // Similar to componentDidMount and componentDidUpdate:
-    useEffect(() => {
-    // if the fetch doesnt work check the id, dropping the db changes the ID
-        fetch(`http://localhost:3000/users/2`)
-        .then(response => response.json())
-        .then(response => {
-          if(userBoardGames.length === 0){
-            console.log(response.boardgames)
-            setUserBoardGames(response.boardgames)
-          }
-        })
-      });
-    
-
-  return (
-    <div className="home-div">
-      <h1> Welcome (USER TO BE FILLED IN AFTER AUTH)</h1> 
-      <h2>It's game time </h2>
-      <Button variant="contained" color="primary" >+</Button> <h3 style={{ display: "inline-block" }}> Join a Game! </h3> 
-      <br/>
-      <Button variant="contained" color="primary" >+</Button> <h3 style={{ display: "inline-block" }}> Host a Game! </h3> 
-      <br/>
-      <Button variant="contained" color="primary" onClick={() => props.history.push("/addgames")}>+</Button> <h3 style={{ display: "inline-block" }}> Add to your board games! </h3> 
-      <h5> Games you own: </h5>
-      <div className="homes-games-collection">   
-        <ul>
-          {userBoardGames && userBoardGames.map( boardgame => 
-          <span key={boardgame.id}> <img className="home-game-images" src={boardgame.image_url}/>  </span>
-          )}
-        </ul>
-      </div>
-    </div>
-  );
+state = {
+  currentUser: null
 }
 
-export default App;
+componentDidMount(){
+  const user_id = localStorage.user_id
+  console.log(user_id)
+  if (user_id){
+    //get user info
+    console.log("Inside the user id if statement")
+    fetch('http://localhost:3000/auto_login', {
+      headers: {
+        "Authorization": user_id
+      }
+    })
+    .then(res=> res.json())
+    .then(response => {
+      if (response.errors){
+        alert(response.errors)
+      } else {
+        this.setState({currentUser: response})
+      }
+    })
+    }
+    
+  }
+
+
+setUser = (user) => {
+  this.setState({ currentUser: user }, () => {
+  localStorage.user_id = user.id
+    this.props.history.push("/")
+  })
+}
+
+logout = () => {
+  this.setState({ currentUser: null }, () => {
+    localStorage.removeItem("user_id")
+    this.props.history.push("/login")
+  })
+}
+
+render(){
+  console.log("current user", this.state.currentUser)
+  return (
+  <Router>
+      <Route exact path="/" render={(routerProps) => <Home {...routerProps} user={this.state.currentUser} />} />
+    <Route path="/signup" render={(routerProps) => <Signup {...routerProps} setUser={this.setUser}/>} />
+    <Route path="/login" render={(routerProps) => <Login {...routerProps} setUser={this.setUser} />} />
+    <Route path="/addgames" component={AddGames} />
+    <Route path="/opengamerooms" component={OpenGameRooms} />
+  </Router>)
+}
+}
+
+export default App

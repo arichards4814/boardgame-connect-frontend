@@ -28,11 +28,36 @@ export default function Signup(props){
         password: "",
         confirmPassword: ""
     });
+    const [errors, setError] = useState([])
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("submit pressed")
+        if (form.password === form.confirmPassword){
+            console.log("submit pressed")
+            fetch('http://localhost:3000/signup', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    name: form.username,
+                    password: form.password
+                })
+            })
+            .then(res=> res.json())
+            .then(response => {
+                if(response.errors){
+                    console.log(errors)
+                    setError(response)
+                } else {
+                    props.setUser(response)
+                }
+            })
+        } else {
+            setError({errors: ["Passwords are not the same"]})
+        }
     }
 
     const handleChange = (e) => {
@@ -71,6 +96,7 @@ export default function Signup(props){
                             <Button variant="contained" color="primary" type="submit" style={{ margin: 10 }}> Submit </Button>
                         </form>
                     </Typography>
+                    {errors ? <Typography>{errors.errors}</Typography> : ""}
                 </Paper>
             </Container>
         </React.Fragment>

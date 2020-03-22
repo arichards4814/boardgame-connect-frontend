@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -11,7 +11,7 @@ import fetchCatan from '../requests'
 import ChosenGames from '../Components/ChosenGames'
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
-import TinyGameCard from '../Components/TinyGameCard'
+import { purple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,6 +24,16 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(6),
     },
 }));
+
+const ColorButton = withStyles(theme => ({
+    root: {
+        color: theme.palette.getContrastText(purple[500]),
+        backgroundColor: purple[200],
+        '&:hover': {
+            backgroundColor: purple[700],
+        },
+    },
+}))(Button);
 
 export default function GamesContainer(props) {
 
@@ -82,6 +92,10 @@ export default function GamesContainer(props) {
         setChosenGames([])
     }
 
+    const getPopularBoardgames = () => {
+        console.log("get pop boardgames")
+    }
+
 
     return (
         <div>
@@ -100,8 +114,11 @@ export default function GamesContainer(props) {
                 </Grid>
             </Grid>
             <Paper className={classes.control} >
-                <Button variant="outlined" color="primary" onClick={previousIndex}>Previous</Button>
-                <Button variant="outlined" color="primary" onClick={nextIndex}>Next</Button>
+                <Grid container spacing={3} >
+                    <Button variant="outlined" color="primary" onClick={previousIndex} style={{ marginRight: 6 }}>Previous</Button>
+                    <Button variant="outlined" color="primary" onClick={nextIndex} style={{ marginRight: 6 }}>Next</Button>
+                    <ColorButton variant="outlined" color="primary" onClick={getPopularBoardgames}>Search Popular Games</ColorButton>
+                </Grid>
                 
                 {games.length > 0 && <Typography variant="subtitle1" component="h2">Viewing: {indexOfSearch} - {indexOfSearch + 6} out of {games.length}</Typography>}
                 <Grid container>

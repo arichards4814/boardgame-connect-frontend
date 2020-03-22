@@ -19,20 +19,35 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Signup(props) {
+export default function Login(props) {
 
     const classes = useStyles();
     const [form, setState] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
+        name: "",
+        password: ""
     });
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("submit pressed")
+        fetch('http://localhost:3000/login', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(form)
+        })
+            .then(res => res.json())
+            .then(response => {
+                //set user to state
+                //redirect
+                if(response.errors){
+                    alert(response.errors)
+                } else{
+                    props.setUser(response)
+                }
+            })
     }
 
     const handleChange = (e) => {
@@ -54,7 +69,7 @@ export default function Signup(props) {
                         </div>
                         <h1>Welcome to Boardgame Connect</h1>
                         <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                            <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="username" />
+                            <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="name" />
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Password" name="password" />
                             <Button variant="contained" color="primary" type="submit" style={{ margin: 10}}> Login </Button>
                         </form>
