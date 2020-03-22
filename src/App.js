@@ -1,24 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import GamesIcon from '@material-ui/icons/Games';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
-import Tooltip from '@material-ui/core/Tooltip';
-import Fab from '@material-ui/core/Fab';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 
 //test commit
 
 function App(props) {
+  const classes = useStyles();
   const [userBoardGames, setUserBoardGames] = React.useState([]);
   
 
@@ -35,11 +46,17 @@ function App(props) {
 
   return (
     <div>
-      <Tooltip title="Home" aria-label="home">
-        <Fab size="small" color="primary" aria-label="add" nClick={() => props.history.push("/")} id="home-homebutton">
-            <HomeIcon />
-        </Fab>
-      </Tooltip>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            BoardGame Connect (Maybe make this text the logo image? )
+          </Typography>
+          <Button color="inherit" onClick={() => props.history.push("/")}> < HomeIcon /> </Button>
+        </Toolbar>
+      </AppBar>
       <Container maxWidth="sm" >
         <div className="home-div">
           <h1> Welcome (USER TO BE FILLED IN AFTER AUTH)</h1> 

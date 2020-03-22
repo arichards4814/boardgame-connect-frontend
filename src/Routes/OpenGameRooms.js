@@ -1,7 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles';
+import HomeIcon from '@material-ui/icons/Home';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
-function OpenGameRooms() {
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
+function OpenGameRooms(props) {
+    const classes = useStyles();
     const [boardgames, setBoardgames] = useState([]);
     const [fetchedRooms, setRooms] = useState([]);
   
@@ -28,6 +49,19 @@ function OpenGameRooms() {
 
 
     return (
+      <div>
+        <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            BoardGame Connect (Maybe make this text the logo image? )
+          </Typography>
+          <Button color="inherit" onClick={() => props.history.push("/")}> < HomeIcon /> </Button>
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth="sm" >
         <div className="open-gameroom-div">
            <h1 id="open-game-room-h1">Open game rooms</h1>
            <h5 id="open-game-room-h5">Based on the boardgames you own:</h5>
@@ -49,6 +83,8 @@ function OpenGameRooms() {
             </div>
           )}
         </div>
+      </Container>
+    </div>
     );
 }
 
