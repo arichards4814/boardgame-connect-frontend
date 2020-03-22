@@ -17,15 +17,12 @@ function App(props) {
   // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
     // if the fetch doesnt work check the id, dropping the db changes the ID
-        fetch(`http://localhost:3000/users/2`)
+        fetch(`http://localhost:3000/users/5`)
         .then(response => response.json())
         .then(response => {
-          if(userBoardGames.length === 0){
-            console.log(response.boardgames)
             setUserBoardGames(response.boardgames)
-          }
         })
-      });
+      }, []);
     
 
   return (
