@@ -61,7 +61,7 @@ function HostAGame(props) {
                 name: form.name,
                 host_id: localStorage.user_id,
                 zoom_url: "",
-                boardgame_id: 16
+                boardgame_id: 23
             }
 
             fetch(`http://localhost:3000/rooms`, {

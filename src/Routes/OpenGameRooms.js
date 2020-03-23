@@ -58,7 +58,11 @@ function OpenGameRooms(props) {
           .then(response => response.json())
           .then(response => {
             setRooms(response)
-          })}, []); 
+})}, []); 
+ 
+const handleJoinClick = (event) => {
+  props.history.push(`/rooms/${event.target.parentNode.id}`)
+}
   
 
 
@@ -89,7 +93,7 @@ function OpenGameRooms(props) {
                         </ul>
                       </CardContent>
                       <CardActions>
-                        <Button id="join-button" size="small" bgcolor="secondary.main"> Join </Button>
+                        <Button id={room.id} size="small" bgcolor="secondary.main" onClick={(event) => handleJoinClick(event)}> Join </Button>
                       </CardActions>
                     </Card>)
                     :
