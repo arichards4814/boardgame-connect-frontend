@@ -60,7 +60,7 @@ function Home(props) {
                     <h2>It's game time </h2>
                     <Button variant="contained" color="primary" onClick={() => props.history.push("/opengamerooms")}> <GroupIcon /></Button> <h3 style={{ display: "inline-block" }}> Join a Game! </h3>
                     <br />
-                    <Button variant="contained" color="secondary" > <AccessibilityNewIcon /></Button> <h3 style={{ display: "inline-block" }}> Host a Game! </h3>
+                    <Button variant="contained" color="secondary" onClick={() => props.history.push("/hostagame")}> <AccessibilityNewIcon /></Button> <h3 style={{ display: "inline-block" }}> Host a Game! </h3>
                     <br />
                     <Button variant="contained" style={{ color: "orange" }} onClick={() => props.history.push("/addgames")}> < GamesIcon /> </Button> <h3 style={{ display: "inline-block" }}> Add to your board games! </h3>
                     <h5> Games you own: </h5>

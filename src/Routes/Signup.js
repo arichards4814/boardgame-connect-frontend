@@ -53,6 +53,7 @@ export default function Signup(props){
                     setError(response)
                 } else {
                     props.setUser(response)
+                    props.history.push("/addgames")
                 }
             })
         } else {

@@ -48,7 +48,6 @@ function OpenGameRooms(props) {
     const [boardgames, setBoardgames] = useState([]);
     const [fetchedRooms, setRooms] = useState([]);
   
-
       useEffect(() => {
           fetch(`http://localhost:3000/boardgames`)
           .then(response => response.json())
