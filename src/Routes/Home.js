@@ -36,13 +36,13 @@ function Home(props) {
             })
     }, []);
 
-    const handleGameClick = () => {
-        alert("I will be a route for the Game Show page?")
+    const handleGameClick = (event) => {
+        props.history.push(`/boardgames/${event.target.id}`)
     }
 
     return (
         <div>
-            < MilesNav />
+            < MilesNav history={props.history}/>
             <Container maxWidth="sm" >
                     <h1> Welcome to Boardgame Connect, {user.name}! </h1>
                     <h2>It's game time </h2>
@@ -54,7 +54,7 @@ function Home(props) {
                     <h5> Games you own: </h5>
                     <Box id="owned-games-box">
                             {userBoardGames && userBoardGames.map(boardgame =>
-                                <span key={boardgame.id}> <img onClick={() => handleGameClick()} className="home-game-images" src={boardgame.image_url} />  </span>
+                                <span key={boardgame.id}> <img id={boardgame.id} onClick={(event) => handleGameClick(event)} className="home-game-images" src={boardgame.image_url} />  </span>
                             )}
                     </Box>
             </Container>

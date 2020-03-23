@@ -9,18 +9,6 @@ import Box from '@material-ui/core/Box';
 import MilesNav from "../Components/MilesNav.js"
 
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
 const useStylesCard = makeStyles({
   root: {
     minWidth: 275,
@@ -39,7 +27,6 @@ const useStylesCard = makeStyles({
 });
 
 function OpenGameRooms(props) {
-    const classes = useStyles();
     const [boardgames, setBoardgames] = useState([]);
     const [fetchedRooms, setRooms] = useState([]);
   
@@ -63,7 +50,7 @@ const handleJoinClick = (event) => {
 
   return (
     <div>
-    <MilesNav/>
+    <MilesNav history={props.history}/>
       <Container maxWidth="sm" >
            <h1 id="open-game-room-h1">Open game rooms</h1>
            {/* <h5 id="open-game-room-h5">Based on the boardgames you own:</h5> */}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import MilesNav from "../Components/MilesNav.js"
 
 
 function GameShowPage(props) {
@@ -16,6 +17,7 @@ function GameShowPage(props) {
 
     return(
         <div>
+            <MilesNav history={props.history}/>
             <h1>{game.name}</h1>
         </div>
     )
