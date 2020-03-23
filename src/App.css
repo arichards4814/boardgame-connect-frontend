@@ -65,10 +65,12 @@ h1, h2, h3, h4, h5 ,h6 {
   margin-right: 10%;
 }
 
+
 .home-game-images {
   width: 8vw;
   height: 8vw;
   margin-right: 5%;
+  cursor: pointer;
 }
 
 #open-game-room-h5 {
@@ -110,4 +112,8 @@ h1, h2, h3, h4, h5 ,h6 {
 
 #open-game-room-name {
   margin-left: 10%;
+}
+
+#join-button {
+  margin-left: 40%;
 }

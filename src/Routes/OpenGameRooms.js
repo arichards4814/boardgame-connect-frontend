@@ -80,7 +80,7 @@ function OpenGameRooms(props) {
               <h2 id="open-game-room-name">{game.name}:</h2>
                     {game.rooms.length > 0 ? game.rooms.map( room => 
                     <Card variant="outlined" className="game-room-card">
-                      <CardContent>
+                      <CardContent className="game-room-card-content">
                         {<h4 className="margin-left-5"> Room Name: {room.name}</h4>}
                         <h6 className="zoom-url"> Zoom url: {room.zoom_url} </h6> 
                         <h5 className="margin-left-5"> Users:</h5>
@@ -89,7 +89,7 @@ function OpenGameRooms(props) {
                         </ul>
                       </CardContent>
                       <CardActions>
-                        <Button size="small"> Join </Button>
+                        <Button id="join-button" size="small" bgcolor="secondary.main"> Join </Button>
                       </CardActions>
                     </Card>)
                     :

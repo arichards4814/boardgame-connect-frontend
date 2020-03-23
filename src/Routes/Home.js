@@ -32,13 +32,11 @@ function Home(props) {
     const classes = useStyles();
     const [userBoardGames, setUserBoardGames] = React.useState([]);
     const [user, setUser] = React.useState("");
-    
     useEffect(() => {
         fetch(`http://localhost:3000/users/${localStorage.user_id}`)
             .then(response => response.json())
             .then(response => {
                 setUserBoardGames(response.boardgames)
-                console.log(response.boardgames)
                 setUser(response)
             })
     }, []);
@@ -51,9 +49,6 @@ function Home(props) {
         <div>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         BoardGame Connect (Maybe make this text the logo image? )
                     </Typography>
@@ -61,7 +56,7 @@ function Home(props) {
                 </Toolbar>
             </AppBar>
             <Container maxWidth="sm" >
-                    <h1> Welcome to Boardgame Connect {user.name}! </h1>
+                    <h1> Welcome to Boardgame Connect, {user.name}! </h1>
                     <h2>It's game time </h2>
                     <Button variant="contained" color="primary" onClick={() => props.history.push("/opengamerooms")}> <GroupIcon /></Button> <h3 style={{ display: "inline-block" }}> Join a Game! </h3>
                     <br />
