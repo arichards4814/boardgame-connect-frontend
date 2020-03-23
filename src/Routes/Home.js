@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import GamesIcon from '@material-ui/icons/Games';
 import GroupIcon from '@material-ui/icons/Group';
-import HomeIcon from '@material-ui/icons/Home';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Box from '@material-ui/core/Box';
+import MilesNav from "../Components/MilesNav.js"
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,14 +42,7 @@ function Home(props) {
 
     return (
         <div>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        BoardGame Connect (Maybe make this text the logo image? )
-                    </Typography>
-                    <Button color="inherit" onClick={() => props.history.push("/")}> < HomeIcon /> </Button>
-                </Toolbar>
-            </AppBar>
+            < MilesNav />
             <Container maxWidth="sm" >
                     <h1> Welcome to Boardgame Connect, {user.name}! </h1>
                     <h2>It's game time </h2>

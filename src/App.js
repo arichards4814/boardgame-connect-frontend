@@ -8,6 +8,7 @@ import AddGames from './Routes/AddGames'
 import OpenGameRooms from './Routes/OpenGameRooms'
 import HostAGame from './Routes/HostAGame'
 import GameRoom from './Routes/GameRoom'
+import GameShowPage from './Routes/GameShowPage'
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 class App extends React.Component {
@@ -66,7 +67,8 @@ render(){
     <Route path="/addgames" component={AddGames} />
     <Route path="/opengamerooms" component={OpenGameRooms} />
     <Route path="/hostagame" component={HostAGame} />
-      <Route path={`/rooms/:id`} render={routerProps => <GameRoom {...routerProps}/>} />
+    <Route path={`/rooms/:id`} render={routerProps => <GameRoom {...routerProps}/>} />
+    <Route path={`/boardgames/:id`} render={routerProps => <GameShowPage {...routerProps}/>}  />
   </Router>)
 }
 }
