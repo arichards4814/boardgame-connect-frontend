@@ -54,14 +54,15 @@ function HostAGame(props) {
         } else {
             console.log("submit clicked", form)
             // [x] this fetch will be a post to rooms
-            // it will create a new room with a room id and then redirect to
+            // [x]it will create a new room with a room id and then redirect to
             // that specific room
-            // also creates a user_rooms connection in a then
+            // [x]also creates a user_rooms connection in a then
             let room_data = {
                 name: form.name,
                 host_id: localStorage.user_id,
                 zoom_url: "",
-                boardgame_id: 16
+                boardgame_id: 16,
+                maxplayers: form.maxplayers
             }
 
             fetch(`http://localhost:3000/rooms`, {
@@ -72,11 +73,24 @@ function HostAGame(props) {
                 },
                 body: JSON.stringify(room_data)
             }).then(resp => resp.json())
-                .then(body=> {
-                    console.log("push to this id ", body.id)
-                    // () => props.history.push(`/rooms/${body.id}`)
+                .then(body=> { 
+
+                    let userroomdata = {
+                        user_id: localStorage.user_id,
+                        room_id: body.id
+                    }
+                    
+                    fetch(`http://localhost:3000/userrooms`,{
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(userroomdata)
+                    })
+                    
+                    props.history.push(`/rooms/${body.id}`)
                 })
-                // then post to user_rooms for the connection
         }
 
 

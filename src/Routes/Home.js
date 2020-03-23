@@ -30,23 +30,16 @@ const useStyles = makeStyles(theme => ({
 //test commit
 function Home(props) {
     const classes = useStyles();
-<<<<<<< HEAD
-    const [userBoardGames, setUserBoardGames] = useState([]);
-    // Similar to componentDidMount and componentDidUpdate:
-=======
     const [userBoardGames, setUserBoardGames] = React.useState([]);
     const [user, setUser] = React.useState("");
->>>>>>> 3d51970085b327da20dd015f4186cf3f798d4e5a
+    
     useEffect(() => {
         fetch(`http://localhost:3000/users/${localStorage.user_id}`)
             .then(response => response.json())
             .then(response => {
                 setUserBoardGames(response.boardgames)
-<<<<<<< HEAD
                 console.log(response.boardgames)
-=======
                 setUser(response)
->>>>>>> 3d51970085b327da20dd015f4186cf3f798d4e5a
             })
     }, []);
 

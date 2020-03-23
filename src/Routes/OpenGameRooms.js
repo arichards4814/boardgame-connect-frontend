@@ -48,11 +48,6 @@ function OpenGameRooms(props) {
     const [boardgames, setBoardgames] = useState([]);
     const [fetchedRooms, setRooms] = useState([]);
   
-<<<<<<< HEAD
-    // Similar to componentDidMount and componentDidUpdate:
-=======
-
->>>>>>> 3d51970085b327da20dd015f4186cf3f798d4e5a
       useEffect(() => {
           fetch(`http://localhost:3000/boardgames`)
           .then(response => response.json())
