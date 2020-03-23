@@ -11,6 +11,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Box from '@material-ui/core/Box';
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,34 +48,29 @@ function OpenGameRooms(props) {
     const [boardgames, setBoardgames] = useState([]);
     const [fetchedRooms, setRooms] = useState([]);
   
+<<<<<<< HEAD
     // Similar to componentDidMount and componentDidUpdate:
+=======
+
+>>>>>>> 3d51970085b327da20dd015f4186cf3f798d4e5a
       useEffect(() => {
-      // if the fetch doesnt work check the id, dropping the db changes the ID
           fetch(`http://localhost:3000/boardgames`)
           .then(response => response.json())
           .then(response => {
             setBoardgames(response)
           })
-        }, []);
-
-    // Similar to componentDidMount and componentDidUpdate:
-      useEffect(() => {
-      // if the fetch doesnt work check the id, dropping the db changes the ID
-          fetch(`http://localhost:3000/rooms`)
+           fetch(`http://localhost:3000/rooms`)
           .then(response => response.json())
           .then(response => {
             setRooms(response)
-          })
-        }, []);
+          })}, []); 
+  
 
 
-    return (
+  return (
     <div>
-      <AppBar position="static">
+      <AppBar position="static" style={{backround: "#f1f2f6"}} >
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             BoardGame Connect (Maybe make this text the logo image? )
           </Typography>
@@ -83,10 +79,10 @@ function OpenGameRooms(props) {
       </AppBar>
       <Container maxWidth="sm" >
            <h1 id="open-game-room-h1">Open game rooms</h1>
-           <h5 id="open-game-room-h5">Based on the boardgames you own:</h5>
+           {/* <h5 id="open-game-room-h5">Based on the boardgames you own:</h5> */}
             {boardgames.map( game => 
-              <div key={game.id}> 
-              <h2>{game.name}:</h2>
+            <Box key={game.id} className="open-game-room-box" borderRadius={16}> 
+              <h2 id="open-game-room-name">{game.name}:</h2>
                     {game.rooms.length > 0 ? game.rooms.map( room => 
                     <Card variant="outlined" className="game-room-card">
                       <CardContent>
@@ -94,11 +90,11 @@ function OpenGameRooms(props) {
                         <h6 className="zoom-url"> Zoom url: {room.zoom_url} </h6> 
                         <h5 className="margin-left-5"> Users:</h5>
                         <ul> 
-                            {/* {(fetchedRooms.find(fetchRoom => fetchRoom.id == room.id)).users.map( user => <h6 className="user-list" key={user.id}> {user.name} </h6> )} */}
+                            {(fetchedRooms.find(fetchRoom => fetchRoom.id == room.id)).users.map( user => <h6 className="user-list" key={user.id}> {user.name} </h6> )}
                         </ul>
                       </CardContent>
                       <CardActions>
-                        <Button size="small">Learn More</Button>
+                        <Button size="small"> Join </Button>
                       </CardActions>
                     </Card>)
                     :
@@ -106,7 +102,7 @@ function OpenGameRooms(props) {
                       {<h4 id="no-room-active-text"> No Rooms yet!</h4>}
                     </Card>
                     }
-            </div>)}
+            </Box>)}
       </Container>
  </div>
   );
