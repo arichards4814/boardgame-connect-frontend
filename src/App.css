@@ -54,11 +54,13 @@ h1, h2, h3, h4, h5 ,h6 {
   margin-left: 5%;
 }
 
-.homes-games-collection {
-  border: solid;
-  width: 50vw;
-  height: 10vw;
-  margin-bottom: 5%;
+.margin-left-5 {
+  margin-left: 5%;
+  margin-bottom: 0%;
+}
+
+.game-room-card {
+  margin-bottom: 10%;
 }
 
 .home-game-images {
@@ -73,4 +75,23 @@ h1, h2, h3, h4, h5 ,h6 {
 
 #open-game-room-h1 {
   margin-bottom: 0%
+}
+
+.zoom-url {
+  margin-top: 0%;
+  margin-left: 5%;
+}
+
+.user-list {
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+#home-homebutton {
+  margin-left: 90%;
+  margin-top: 2%;
+}
+
+#no-room-active-text {
+  margin-left: 5%;
 }
