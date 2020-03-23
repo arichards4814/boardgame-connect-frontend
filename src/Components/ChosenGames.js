@@ -40,6 +40,10 @@ export default function ChosenGames(props) {
     const addChosenGamesToDatabase = () => {
         
         props.games.forEach(game => {
+
+            //need to add a user_boardgame connection
+            //after this first fetch here.. grab the id from the response
+
             fetch('http://localhost:3000/boardgames', {
                 method: 'POST',
                 headers: {
@@ -47,11 +51,25 @@ export default function ChosenGames(props) {
                     'accept': 'application/json'
                 },
                 body: JSON.stringify(game)
-            }).then(props.clearChosen())
+            }).then(resp => resp.json())
+            .then(body => {
+                fetch('http://localhost:3000/userboardgames', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json',
+                        'accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: localStorage.user_id,
+                        boardgame_id: body.id
+                    })
+                })
+                    }).then(props.clearChosen())
                 .then(setOpen(true))
-        })
+        
         //clears the chosen array
         //then pop up with the cool green thing.
+        })
     }
 
 

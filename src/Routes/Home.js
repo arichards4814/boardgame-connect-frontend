@@ -11,7 +11,7 @@ function Home(props) {
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         // if the fetch doesnt work check the id, dropping the db changes the ID
-        fetch(`http://localhost:3000/users/2`)
+        fetch(`http://localhost:3000/users/${localStorage.user_id}`)
             .then(response => response.json())
             .then(response => {
                 if (userBoardGames.length === 0) {
@@ -19,14 +19,15 @@ function Home(props) {
                     setUserBoardGames(response.boardgames)
                 }
             })
-    });
+    }, []);
 
     if (props.user){
-        console.log("current user", props.user.name)
+        console.log("current user", localStorage.user_id)
     }
 
     return (
         <div className="home-div">
+            <Button onClick={props.logout}>Logout</Button>
             <h1> Welcome {props.user && props.user.name}</h1>
             <h2>It's game time </h2>
             <Button variant="contained" color="primary" onClick={() => props.history.push("/opengamerooms")}>+</Button> <h3 style={{ display: "inline-block" }}> Join a Game! </h3>

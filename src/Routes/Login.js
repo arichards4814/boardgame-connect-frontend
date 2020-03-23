@@ -45,7 +45,7 @@ export default function Login(props) {
                 if(response.errors){
                     alert(response.errors)
                 } else{
-                    props.setUser(response)
+                    props.setUser(response, () => props.history.push("/"))
                 }
             })
     }
