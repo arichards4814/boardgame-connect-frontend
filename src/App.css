@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5 ,h6 {
   margin-right: 5%;
   cursor: pointer;
   transition: transform .2s; /* Animation */
-  margin-bottom: 8%;
+  margin-bottom: 6%;
 }
 
 .home-game-images:hover {
