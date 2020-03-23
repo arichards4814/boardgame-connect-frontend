@@ -94,6 +94,11 @@ export default function GamesContainer(props) {
 
     const getPopularBoardgames = () => {
         console.log("get pop boardgames")
+
+        fetch("http://localhost:3000/boardgames")
+            .then(resp => resp.json())
+            .then(body => setGames(body))
+
     }
 
 
@@ -119,13 +124,13 @@ export default function GamesContainer(props) {
                     <Button variant="outlined" color="primary" onClick={nextIndex} style={{ marginRight: 6 }}>Next</Button>
                     <ColorButton variant="outlined" color="primary" onClick={getPopularBoardgames}>Search Popular Games</ColorButton>
                 </Grid>
-                
-                {games.length > 0 && <Typography variant="subtitle1" component="h2">Viewing: {indexOfSearch} - {indexOfSearch + 6} out of {games.length}</Typography>}
+                <br></br>
+                {games && games.length > 0 && <Typography variant="subtitle1" component="h2">Viewing: {indexOfSearch} - {indexOfSearch + 6} out of {games.length}</Typography>}
                 <Grid container>
                     <Grid item md={1}></Grid>
                     <Grid item md={11}>
                         <Grid className={classes.root} container spacing={4}>
-                         {games.length > 0 ? renderGames() : <div></div>}
+                            {games && games.length > 0 ? renderGames() : <div></div>}
                         </Grid>
                     </Grid>
                     

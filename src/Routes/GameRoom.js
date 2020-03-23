@@ -52,9 +52,25 @@ function GameRoom(props) {
     }
 
     const findHost = () => {
-        if (game){
+        if (game.users){
             let host = game.users.find(user => user.id === game.host_id)
             return <UserCard type="host" player={host} />
+        }
+    }
+
+    const userInGame = () => {
+        //returns true or false based on
+        //whether current user is in the game
+        let inGame = false
+        if (game.users){
+            game.users.forEach(user => { 
+                console.log(user.id)
+                console.log(localStorage.user_id)
+                if (parseInt(user.id) === parseInt(localStorage.user_id)){
+                    inGame = true
+                }
+            })
+            return inGame
         }
     }
 
@@ -79,6 +95,9 @@ function GameRoom(props) {
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography > You are currently the host.  </Typography>}
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Button variant="contained" color="primary"> Generate Zoom Link </Button>}
                     {/* {game.users && game.users.find(user => user.id === localStorage.user_id) ? null : <Button variant="contained" color="primary"> Join Game </Button>} */}
+                    {game.users && game.users.length < game.maxplayers && <Typography variant="body1">Waiting for Players</Typography>}
+                    {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
+                    {!userInGame() && <Button variant="contained" color="primary">Join Game</Button>}
                 </Grid>
             </Grid>
             <br></br>
