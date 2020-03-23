@@ -1,30 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import HomeIcon from '@material-ui/icons/Home';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box';
+import TopNav from "../Components/TopNav.js"
 
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
 
 const useStylesCard = makeStyles({
   root: {
@@ -44,7 +27,6 @@ const useStylesCard = makeStyles({
 });
 
 function OpenGameRooms(props) {
-    const classes = useStyles();
     const [boardgames, setBoardgames] = useState([]);
     const [fetchedRooms, setRooms] = useState([]);
   
@@ -58,20 +40,17 @@ function OpenGameRooms(props) {
           .then(response => response.json())
           .then(response => {
             setRooms(response)
-          })}, []); 
+})}, []); 
+ 
+const handleJoinClick = (event) => {
+  props.history.push(`/rooms/${event.target.parentNode.id}`)
+}
   
 
 
   return (
     <div>
-      <AppBar position="static" style={{backround: "#f1f2f6"}} >
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            BoardGame Connect (Maybe make this text the logo image? )
-          </Typography>
-          <Button color="inherit" onClick={() => props.history.push("/")}> < HomeIcon /> </Button>
-        </Toolbar>
-      </AppBar>
+    <TopNav history={props.history}/>
       <Container maxWidth="sm" >
            <h1 id="open-game-room-h1">Open game rooms</h1>
            {/* <h5 id="open-game-room-h5">Based on the boardgames you own:</h5> */}
@@ -89,7 +68,7 @@ function OpenGameRooms(props) {
                         </ul>
                       </CardContent>
                       <CardActions>
-                        <Button id="join-button" size="small" bgcolor="secondary.main"> Join </Button>
+                        <Button id={room.id} size="small" bgcolor="secondary.main" onClick={(event) => handleJoinClick(event)}> Join </Button>
                       </CardActions>
                     </Card>)
                     :

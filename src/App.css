@@ -37,6 +37,7 @@
   }
 }
 
+/* /ubiquitous css */
 
 .main-logo{
   width: 400px
@@ -46,31 +47,22 @@ h1, h2, h3, h4, h5 ,h6 {
   font-family: 'Titillium Web', sans-serif
 }
 
-.home-div {
-  margin-left: 5%;
-}
-
-.open-gameroom-div {
-  margin-left: 5%;
-}
-
 .margin-left-5 {
   margin-left: 5%;
   margin-bottom: 0%;
+}
+
+
+/* /opengameroom css */
+
+.open-gameroom-div {
+  margin-left: 5%;
 }
 
 .game-room-card {
   margin-bottom: 10%;
   margin-left: 10%;
   margin-right: 10%;
-}
-
-
-.home-game-images {
-  width: 8vw;
-  height: 8vw;
-  margin-right: 5%;
-  cursor: pointer;
 }
 
 #open-game-room-h5 {
@@ -80,28 +72,17 @@ h1, h2, h3, h4, h5 ,h6 {
 #open-game-room-h1 {
   margin-bottom: 0%
 }
-
 .zoom-url {
   margin-top: 0%;
   margin-left: 5%;
 }
-
 .user-list {
   margin-top: 0%;
   margin-bottom: 0%;
 }
 
-#home-homebutton {
-  margin-left: 90%;
-  margin-top: 2%;
-}
-
-#no-room-active-text {
-  margin-left: 5%;
-}
-
-#owned-games-box {
-  margin-bottom: 10%;
+#open-game-room-name {
+  margin-left: 10%;
 }
 
 .open-game-room-box {
@@ -110,10 +91,49 @@ h1, h2, h3, h4, h5 ,h6 {
   height: 100%;
 }
 
-#open-game-room-name {
-  margin-left: 10%;
+#no-room-active-text {
+  margin-left: 5%;
 }
 
 #join-button {
   margin-left: 40%;
+}
+
+/* /home css */
+
+#home-h1 {
+  margin-top: 20%;
+  margin-right: 10%;
+}
+
+#owned-games-box {
+  margin-bottom: 10%;
+}
+
+.home-game-images {
+  width: 8vw;
+  height: 8vw;
+  margin-right: 5%;
+  cursor: pointer;
+  transition: transform .2s; /* Animation */
+  margin-bottom: 8%;
+}
+
+.home-game-images:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+
+/* /TopNav css */
+
+#home-homebutton {
+  margin-left: 90%;
+  margin-top: 2%;
+}
+
+/* /gameshowpage css */
+
+#gameshow-h1 {
+  margin-top: 10%;
 }
