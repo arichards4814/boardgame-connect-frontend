@@ -19,10 +19,10 @@ import HomeIcon from '@material-ui/icons/Home';
         },
     }));
 
-    const MilesNav = (props) => {
+    const TopNav = (props) => {
         const classes = useStyles();
         return(
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Toolbar>
             <Typography variant="h6" className={classes.title}>
                 BoardGame Connect (Maybe make this text the logo image? )
@@ -33,4 +33,4 @@ import HomeIcon from '@material-ui/icons/Home';
         )
     }
 
-export default MilesNav
+export default TopNav

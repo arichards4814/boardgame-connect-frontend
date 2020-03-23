@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MilesNav from "../Components/MilesNav.js"
+import TopNav from "../Components/TopNav.js"
 
 
 function GameShowPage(props) {
@@ -17,8 +17,8 @@ function GameShowPage(props) {
 
     return(
         <div>
-            <MilesNav history={props.history}/>
-            <h1>{game.name}</h1>
+            <TopNav history={props.history}/>
+            <h1 id="gameshow-h1">{game.name}</h1>
         </div>
     )
 }

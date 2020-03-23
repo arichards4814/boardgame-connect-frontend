@@ -61,7 +61,7 @@ function HostAGame(props) {
                 name: form.name,
                 host_id: localStorage.user_id,
                 zoom_url: "",
-                boardgame_id: 16,
+                boardgame_id: 23,
                 maxplayers: form.maxplayers
             }
 
@@ -74,7 +74,7 @@ function HostAGame(props) {
                 body: JSON.stringify(room_data)
             }).then(resp => resp.json())
                 .then(body=> { 
-
+                    
                     let userroomdata = {
                         user_id: localStorage.user_id,
                         room_id: body.id

@@ -7,7 +7,7 @@ import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import GamesIcon from '@material-ui/icons/Games';
 import GroupIcon from '@material-ui/icons/Group';
 import Box from '@material-ui/core/Box';
-import MilesNav from "../Components/MilesNav.js"
+import TopNav from "../Components/TopNav.js"
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,9 +42,9 @@ function Home(props) {
 
     return (
         <div>
-            < MilesNav history={props.history}/>
+            <TopNav history={props.history}/>
             <Container maxWidth="sm" >
-                    <h1> Welcome to Boardgame Connect, {user.name}! </h1>
+                    <h1 id="home-h1"> Welcome to Boardgame Connect, {user.name}! </h1>
                     <h2>It's game time </h2>
                     <Button variant="contained" color="primary" onClick={() => props.history.push("/opengamerooms")}> <GroupIcon /></Button> <h3 style={{ display: "inline-block" }}> Join a Game! </h3>
                     <br />

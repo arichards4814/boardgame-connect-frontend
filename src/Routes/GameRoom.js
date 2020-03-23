@@ -52,7 +52,7 @@ function GameRoom(props) {
     }
 
     const findHost = () => {
-        if (game){
+        if (game.users){
             let host = game.users.find(user => user.id === game.host_id)
             return <UserCard type="host" player={host} />
         }
