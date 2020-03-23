@@ -6,6 +6,8 @@ import Signup from './Routes/Signup'
 import Login from './Routes/Login'
 import AddGames from './Routes/AddGames'
 import OpenGameRooms from './Routes/OpenGameRooms'
+import HostAGame from './Routes/HostAGame'
+import GameRoom from './Routes/GameRoom'
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 class App extends React.Component {
@@ -58,11 +60,13 @@ render(){
   console.log("current user", this.state.currentUser)
   return (
   <Router>
-    <Route exact path="/" render={(routerProps) => <Home {...routerProps} user={this.state.currentUser} logout={this.logout}/>} />
-    <Route path="/signup" render={(routerProps) => <Signup {...routerProps} setUser={this.setUser}/>} />
-    <Route path="/login" render={(routerProps) => <Login {...routerProps} setUser={this.setUser}/>} />
+    <Route exact path="/" render={({ history }) => <Home history={history}  user={this.state.currentUser} logout={this.logout}/>} />
+    <Route path="/signup" render={({ history}) => <Signup history={history} setUser={this.setUser}/>} />
+    <Route path="/login" render={({ history }) => <Login history={history} setUser={this.setUser}/>} />
     <Route path="/addgames" component={AddGames} />
     <Route path="/opengamerooms" component={OpenGameRooms} />
+    <Route path="/hostagame" component={HostAGame} />
+      <Route path={`/rooms/:id`} render={routerProps => <GameRoom {...routerProps}/>} />
   </Router>)
 }
 }

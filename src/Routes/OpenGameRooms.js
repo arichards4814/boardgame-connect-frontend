@@ -47,7 +47,6 @@ function OpenGameRooms(props) {
     const [boardgames, setBoardgames] = useState([]);
     const [fetchedRooms, setRooms] = useState([]);
   
-
     // Similar to componentDidMount and componentDidUpdate:
       useEffect(() => {
       // if the fetch doesnt work check the id, dropping the db changes the ID
