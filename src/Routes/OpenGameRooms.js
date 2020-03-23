@@ -65,11 +65,8 @@ function OpenGameRooms(props) {
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="static" style={{backround: "#f1f2f6"}} >
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             BoardGame Connect (Maybe make this text the logo image? )
           </Typography>
