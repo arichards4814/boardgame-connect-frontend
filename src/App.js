@@ -30,7 +30,6 @@ componentDidMount(){
     .then(res=> res.json())
     .then(response => {
       if (response.errors){
-        alert(response.errors)
       } else {
         this.setState({currentUser: response})
       }

@@ -21,6 +21,11 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 345,
         backgroundColor: "#6a7feb"
     },
+    noplayer: {
+        minWidth: 345,
+        maxWidth: 345,
+        backgroundColor: "#b2b5c2"
+    },
 }));
 
 export default function UserCard(props){
@@ -35,6 +40,8 @@ export default function UserCard(props){
             setCurrentStyle(classes.player)
         } else if (type === "host"){
             setCurrentStyle(classes.host)
+        } else {
+            setCurrentStyle(classes.noplayer)
         }});
 
 
@@ -48,7 +55,7 @@ export default function UserCard(props){
             />
             <CardContent>
                 <Typography variant="h6" >{props.type === "host" ? "Host" : "Player"}</Typography>
-                <Typography variant="h5" >{props.player && props.player.name}</Typography>
+                <Typography variant="h5" >{props.player ? props.player.name : "No player yet."}</Typography>
             </CardContent>
         </Card>
     )

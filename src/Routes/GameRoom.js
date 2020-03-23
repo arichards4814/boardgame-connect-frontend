@@ -28,10 +28,26 @@ function GameRoom(props) {
         // need to make sure they are not the host on every pass
 
         let playerCards = []
-        for (let i = 0; i < game.maxplayers - 1; i++) {
-            playerCards.push(<Grid item ><UserCard type="player" /></Grid>)
+        // first create the player cards
+        if (game.users && game.users.length > 1){
+            game.users.forEach(user => {
+                if (user.id === game.host_id){
+
+                }else{
+                    playerCards.push(<Grid item ><UserCard type="player" player={user}/></Grid>)
+                }
+                
+            })
+
+            for (let i = 0; i < game.maxplayers - game.users.length; i++) {
+                playerCards.push(<Grid item ><UserCard type="noplayer" /></Grid>)
+            }
+        } else {
+            for (let i = 0; i < game.maxplayers - 1; i++) {
+                playerCards.push(<Grid item ><UserCard type="noplayer" /></Grid>)
+            }
         }
-        console.log(playerCards)
+        
         return playerCards
     }
 
@@ -43,17 +59,26 @@ function GameRoom(props) {
     }
 
     return(
-        <div>
-            <Typography variant={"h4"}>Room: {game.name}</Typography>
+        <div style={{marginTop: 30}}>
             <Grid container spacing={4}>
-                <Grid item md={4}>
+                <Grid item md={2}>
                     
+                </Grid>
+                <Grid item md={2}>
+                    <Typography variant={"h4"}>Room:</Typography>
+                    <Typography variant={"h5"}>{game.name}</Typography>
+                    <Typography variant={"body1"}>Max Players: {game.maxplayers}</Typography>
+                    <Typography variant={"body1"}>Current Players: {game.users && game.users.length} </Typography>
+                    <img src={game.boardgame && game.boardgame.image_url} style={{height: 150}}></img>
                 </Grid>
                 <Grid item>
                     {findHost()}
                 </Grid>
                 <Grid item>
+                    {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography variant="h5" > Host Panel:  </Typography>}
+                    {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography > You are currently the host.  </Typography>}
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Button variant="contained" color="primary"> Generate Zoom Link </Button>}
+                    {/* {game.users && game.users.find(user => user.id === localStorage.user_id) ? null : <Button variant="contained" color="primary"> Join Game </Button>} */}
                 </Grid>
             </Grid>
             <br></br>
