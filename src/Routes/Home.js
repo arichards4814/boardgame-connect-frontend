@@ -12,6 +12,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Box from '@material-ui/core/Box';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,19 +26,25 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
 }));
+
 //test commit
 function Home(props) {
     const classes = useStyles();
     const [userBoardGames, setUserBoardGames] = React.useState([]);
-    // Similar to componentDidMount and componentDidUpdate:
+    const [user, setUser] = React.useState("");
     useEffect(() => {
-        // if the fetch doesnt work check the id, dropping the db changes the ID
         fetch(`http://localhost:3000/users/${localStorage.user_id}`)
             .then(response => response.json())
             .then(response => {
                 setUserBoardGames(response.boardgames)
+                setUser(response)
             })
     }, []);
+
+    const handleGameClick = () => {
+        alert("I will be a route for the Game Show page?")
+    }
+
     return (
         <div>
             <AppBar position="static">
@@ -46,13 +54,12 @@ function Home(props) {
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         BoardGame Connect (Maybe make this text the logo image? )
-          </Typography>
+                    </Typography>
                     <Button color="inherit" onClick={() => props.history.push("/")}> < HomeIcon /> </Button>
                 </Toolbar>
             </AppBar>
             <Container maxWidth="sm" >
-                <div className="home-div">
-                    <h1> Welcome (USER TO BE FILLED IN AFTER AUTH)</h1>
+                    <h1> Welcome to Boardgame Connect {user.name}! </h1>
                     <h2>It's game time </h2>
                     <Button variant="contained" color="primary" onClick={() => props.history.push("/opengamerooms")}> <GroupIcon /></Button> <h3 style={{ display: "inline-block" }}> Join a Game! </h3>
                     <br />
@@ -60,14 +67,11 @@ function Home(props) {
                     <br />
                     <Button variant="contained" style={{ color: "orange" }} onClick={() => props.history.push("/addgames")}> < GamesIcon /> </Button> <h3 style={{ display: "inline-block" }}> Add to your board games! </h3>
                     <h5> Games you own: </h5>
-                    <div className="homes-games-collection">
-                        <ul>
+                    <Box id="owned-games-box">
                             {userBoardGames && userBoardGames.map(boardgame =>
-                                <span key={boardgame.id}> <img id="home-game-images" src={boardgame.image_url} />  </span>
+                                <span key={boardgame.id}> <img onClick={() => handleGameClick()} className="home-game-images" src={boardgame.image_url} />  </span>
                             )}
-                        </ul>
-                    </div>
-                </div>
+                    </Box>
             </Container>
         </div>
     );

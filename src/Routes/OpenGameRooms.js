@@ -99,7 +99,7 @@ function OpenGameRooms(props) {
                         </ul>
                       </CardContent>
                       <CardActions>
-                        <Button size="small">Learn More</Button>
+                        <Button size="small"> Join </Button>
                       </CardActions>
                     </Card>)
                     :
