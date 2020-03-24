@@ -3,12 +3,21 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import UserCard from '../Components/UserCard'
 import Button from '@material-ui/core/Button';
+import LiveGameRoom from './LiveGameRoom';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function GameRoom(props) {
 
     console.log(props.match.params.id)
 
     const [game, setGame] = useState("");
+    const [open, setOpen] = React.useState(false);
+    const [prompt, setPrompt] = React.useState("");
 
 
     useEffect(() => {
@@ -17,8 +26,6 @@ function GameRoom(props) {
             .then(resp => resp.json())
                 .then(body => setGame(body))
     }, []);
-
-    console.log(game)
 
     const renderPlayers = () => {
 
@@ -64,8 +71,6 @@ function GameRoom(props) {
         let inGame = false
         if (game.users){
             game.users.forEach(user => { 
-                console.log(user.id)
-                console.log(localStorage.user_id)
                 if (parseInt(user.id) === parseInt(localStorage.user_id)){
                     inGame = true
                 }
@@ -73,6 +78,42 @@ function GameRoom(props) {
             return inGame
         }
     }
+
+
+    const fetcher = () => {
+        fetch(`http://localhost:3000/rooms/${props.match.params.id}`)
+            .then(resp => resp.json())
+            .then(body => {
+                setGame(body)
+                console.log("body", body)
+                setPrompt(`${body.users[body.users.length - 1].name} has entered the game!`)
+                setOpen(true)
+            })
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const joinGame = () => {
+        fetch('http://localhost:3000/userrooms', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: localStorage.user_id,
+                room_id: game.id
+            })
+        })
+    }
+
+    const leaveGame = () => {
+        console.log("will have to do a delete here")
+    }
+
+    console.log("game", game)
 
     return(
         <div style={{marginTop: 30}}>
@@ -94,17 +135,22 @@ function GameRoom(props) {
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography variant="h5" > Host Panel:  </Typography>}
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography > You are currently the host.  </Typography>}
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Button variant="contained" color="primary"> Generate Zoom Link </Button>}
-                    {/* {game.users && game.users.find(user => user.id === localStorage.user_id) ? null : <Button variant="contained" color="primary"> Join Game </Button>} */}
                     {game.users && game.users.length < game.maxplayers && <Typography variant="body1">Waiting for Players</Typography>}
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
-                    {!userInGame() && <Button variant="contained" color="primary">Join Game</Button>}
+                    {!userInGame() && <Button variant="contained" color="primary" onClick={joinGame}>Join Game</Button>}
+                    {userInGame() && <Button variant="contained" color="primary" onClick={leaveGame}>Leave Game</Button>}
                 </Grid>
             </Grid>
             <br></br>
             <Grid container spacing={2} justify="center">
                 {renderPlayers()}
             </Grid>
-            
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="info">
+                    {prompt}
+                </Alert>
+            </Snackbar>
+            <LiveGameRoom room_id={game.id} fetch_room_data={fetcher}/>
         </div>
     )
 }
