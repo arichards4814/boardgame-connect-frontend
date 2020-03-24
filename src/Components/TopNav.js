@@ -24,8 +24,9 @@ import HomeIcon from '@material-ui/icons/Home';
         return(
         <AppBar position="fixed">
             <Toolbar>
+                    {/* <img src="./images/Logo_BW.png" style={{ height: 40 }}></img> */}
             <Typography variant="h6" className={classes.title}>
-                BoardGame Connect (Maybe make this text the logo image? )
+                BoardGame Connect
             </Typography>
             <Button color="inherit" onClick={() => props.history.push("/")}> < HomeIcon /> </Button>
             </Toolbar>
