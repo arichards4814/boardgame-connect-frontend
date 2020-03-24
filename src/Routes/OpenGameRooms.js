@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box';
-import TopNav from "../Components/TopNav.js"
+import TopNa from "../Components/TopNav.js"
 
 
 const useStylesCard = makeStyles({
@@ -50,7 +50,7 @@ const handleJoinClick = (event) => {
 
   return (
     <div>
-    <TopNav history={props.history}/>
+    <TopNa history={props.history}/>
       <Container maxWidth="sm" >
            <h1 id="open-game-room-h1">Open game rooms</h1>
            {/* <h5 id="open-game-room-h5">Based on the boardgames you own:</h5> */}

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import TopNav from "../Components/TopNav.js"
 
 
+
 function GameShowPage(props) {
 
     const [game, setGame] = useState("");
+
     useEffect(() => {
         //fetch specific game details
         fetch(`http://localhost:3000/boardgames/${props.match.params.id}`)
@@ -15,12 +17,17 @@ function GameShowPage(props) {
                 })
     }, []);
 
-    return(
+
+        return (
         <div>
-            <TopNav history={props.history}/>
-            <h1 id="gameshow-h1">{game.name}</h1>
+        {/* <TopNav /> */}
+            <div id="game-show-image-div">                
+            </div>
+            <div id="right-game-show-div">
+
+            </div>
         </div>
-    )
+        )
 }
 
 export default GameShowPage
