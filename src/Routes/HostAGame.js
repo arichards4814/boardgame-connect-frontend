@@ -28,6 +28,9 @@ function HostAGame(props) {
     const [validations, setValidations] = useState("")
     const [validationsBoolName, setValidationsBoolName] = useState(false)
     const [validationsBool, setValidationsBool] = useState(false)
+    const [userZoomId, setuserZoomId] = useState("")
+
+
 
     const handleChange = (e) => {
         setState({
@@ -62,7 +65,7 @@ function HostAGame(props) {
             let room_data = {
                 name: form.name,
                 host_id: localStorage.user_id,
-                zoom_url: "",
+                zoom_url: userZoomId,
                 boardgame_id: parseInt(form.boardgame),
                 maxplayers: form.maxplayers
             }
@@ -103,8 +106,12 @@ function HostAGame(props) {
             .then(response => response.json())
             .then(response => {
                 setUserBoardGames(response.boardgames)
+                setuserZoomId(response.zoom_id)
+                console.log(userZoomId)
             })
     }, []);
+
+
 
     const handleClose = () => {
         setOpen(false)
