@@ -10,6 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiAlert from '@material-ui/lab/Alert';
+import HostGameView from '../Components/HostGameView'
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -33,31 +34,15 @@ function HostAGame(props) {
             ...form,
             [e.target.name]: e.target.value
         });
-        if (form.maxplayers < 2 || form.maxplayers > 10){
-            setValidationsBool(false)
-            setValidations("")
-        } else {
-            setValidationsBool(true)
-            setValidations("Can only have between 2 and 10 players.")
-            
-        }
-
-        if (form.name === "") {
-            setValidationsBool(true)
-            setValidations("A room must have a name.")
-        } else {
-            setValidationsBool(false)
-            setValidations("")
-        }
     }
-
-    
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (form.maxplayers < 2 || form.maxplayers > 10){
-            setValidations("Can only have between 2 and 10 players.")
+        let chosenBG = chosenGame()
+
+        if (form.maxplayers < chosenBG.min_players || form.maxplayers > chosenBG.max_players){
+            setValidations(`Can only have between ${chosenBG.min_players} and ${chosenBG.max_players} players.`)
             setValidationsBool(true)
             setOpen(true)
         } else if (form.name === "") {
@@ -134,7 +119,12 @@ function HostAGame(props) {
         }
 
     }
-    console.log(userBoardGames)
+
+    const chosenGame = () => {
+        if (userBoardGames && form.boardgame){
+            return userBoardGames.find(boardgame => boardgame.id === parseInt(form.boardgame))
+        }
+    }
 
 
     return(
@@ -142,7 +132,7 @@ function HostAGame(props) {
             <CssBaseline />
             <Container maxWidth="sm" >
                 <Paper style={{ marginTop: 20 }}>
-                    <Typography component="div" style={{ margin: 10, height: '70vh', textAlign: "center" }}>
+                    <Typography component="div" style={{ margin: 10, height: '72vh', textAlign: "center" }}>
                         <h1> Host A Game</h1>
                         <h2> Create A Room:</h2>
                         <form onSubmit={handleSubmit} noValidate autoComplete="off">
@@ -163,7 +153,8 @@ function HostAGame(props) {
                             <TextField fullWidth margin="dense" error={validationsBool} onChange={handleChange} type="number" label="Max Number of Players" name="maxplayers" />
                             <Button variant="contained" color="primary" type="submit" style={{ margin: 10 }}> Create Room </Button>
                         </form>
-                        {validations && <Typography variant="body1">{validations}</Typography>}
+                        
+                        <HostGameView chosenGame={chosenGame()} />
                     </Typography>
                 </Paper>
             </Container>
