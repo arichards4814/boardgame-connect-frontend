@@ -93,11 +93,11 @@ function GameRoom(props) {
                 <Grid item>
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography variant="h5" > Host Panel:  </Typography>}
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography > You are currently the host.  </Typography>}
-                    {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Button variant="contained" color="primary"> Generate Zoom Link </Button>}
+                    {/* {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Button variant="contained" color="primary"> Generate Zoom Link </Button>} */}
                     {/* {game.users && game.users.find(user => user.id === localStorage.user_id) ? null : <Button variant="contained" color="primary"> Join Game </Button>} */}
                     {game.users && game.users.length < game.maxplayers && <Typography variant="body1">Waiting for Players</Typography>}
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
-                    {!userInGame() && <Button variant="contained" color="primary"><a href="https://us04web.zoom.us/j/763249912" target="_blank"> Join Game </a></Button>}
+                    {<Button variant="contained" color="primary"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank"> Join Game </a></Button>}
                 </Grid>
             </Grid>
             <br></br>
