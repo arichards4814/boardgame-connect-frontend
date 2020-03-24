@@ -139,6 +139,7 @@ function GameRoom(props) {
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
                     {!userInGame() && <Button variant="contained" color="primary" onClick={joinGame}>Join Game</Button>}
                     {userInGame() && <Button variant="contained" color="primary" onClick={leaveGame}>Leave Game</Button>}
+                    {!userInGame() && <Button variant="contained" color="primary"><a href="https://us04web.zoom.us/j/763249912"> Join Game </a></Button>}
                 </Grid>
             </Grid>
             <br></br>

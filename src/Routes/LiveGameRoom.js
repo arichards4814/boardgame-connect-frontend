@@ -19,7 +19,7 @@ class LiveGameRoom extends React.Component{
     }
 
     createChatRoomWebsocketConnection = (room) => {
-
+        console.log("room test", room)
         // Creates the new WebSocket connection.
         let socket = new WebSocket("ws://localhost:3000/cable");
         // When the connection is first created, this code runs subscribing the client to a specific chatroom stream in the ChatRoomChannel.
@@ -52,8 +52,8 @@ class LiveGameRoom extends React.Component{
 
             // Renders any newly created messages onto the page.
             if (msg.message) {
+
                 console.log("Fetching new room data", msg.message)
-                //also say a new user has joined the game
                 this.fetcher()
                 this.props.fetch_room_data()
             }
@@ -64,6 +64,7 @@ class LiveGameRoom extends React.Component{
         socket.onerror = function (error) {
             console.log('WebSocket Error: ' + error);
         };
+
     }
 
     clickToAddFakePlayer = () => {
@@ -77,7 +78,7 @@ class LiveGameRoom extends React.Component{
                 user_id: 22,
                 room_id: this.props.room_id
             })
-        }).then(this.props.fetch_room_data)
+        })
     }
 
     //////////
@@ -90,7 +91,7 @@ class LiveGameRoom extends React.Component{
         fetch(`${API_ROOT}/rooms`)
             .then(res => res.json())
             .then(rooms => this.setState({ rooms: rooms }))
-            .then(x => this.setState({ activeRoom: 20 }))
+            .then(x => this.setState({ activeRoom: this.props.room_id }))
             .then(y => {
                 if (this.state.rooms) {
                     let roomData = this.state.rooms.find(room => room.id === this.state.activeRoom)
@@ -101,6 +102,7 @@ class LiveGameRoom extends React.Component{
 
     render() {
         this.createChatRoomWebsocketConnection(this.props.room_id)
+        console.log(this.props.room_id)
     return(
         <div>
             {/* { this.state.roomData && this.state.roomData.users.map(user => <div> {user.name}</div>)} */}
