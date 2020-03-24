@@ -21,10 +21,19 @@ function GameShowPage(props) {
         return (
         <div>
         {/* <TopNav /> */}
-            <div id="game-show-image-div">                
-            </div>
-            <div id="right-game-show-div">
-
+            <div className="wrapper">     
+                <div>
+                    sussssususjjsjsjjsjsjjsjs
+                </div>
+                <div>
+                    blehhhh
+                </div>
+                <div>
+                    sussssususjjsjsjjsjsjjsjs
+                </div>
+                <div>
+                    blehhhh
+                </div>
             </div>
         </div>
         )
