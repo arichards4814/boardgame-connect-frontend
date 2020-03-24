@@ -26,7 +26,8 @@ export default function Signup(props){
         username: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        zoom_id: ""
     });
     const [errors, setError] = useState([])
 
@@ -43,7 +44,8 @@ export default function Signup(props){
                 },
                 body: JSON.stringify({
                     name: form.username,
-                    password: form.password
+                    password: form.password,    
+                    zoom_id: form.zoom_id
                 })
             })
             .then(res=> res.json())
@@ -93,6 +95,7 @@ export default function Signup(props){
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="username"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Email Address" name="email"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Password" name="password"/>
+                            <TextField fullWidth margin="dense" required onChange={handleChange} label="Zoom ID" name="zoom_id"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Confirm Password" name="confirmPassword"/>
                             <Button variant="contained" color="primary" type="submit" style={{ margin: 10 }}> Submit </Button>
                         </form>
