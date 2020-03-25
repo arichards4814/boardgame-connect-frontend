@@ -1,7 +1,9 @@
 import React from 'react';
 // import { ActionCable } from 'react-actioncable-provider';
 import { API_ROOT } from '../Constants';
-import { API_WS_ROOT } from '../Constants'
+import Paper from '@material-ui/core/Paper'
+import { Button, Input } from '@material-ui/core';
+import ChatBubble from '../Components/ChatBubble'
 // import Cable from '../Components/Cable';
 
 
@@ -10,7 +12,8 @@ class LiveGameRoom extends React.Component{
     state = {
         rooms: [],
         activeRoom: null,
-        roomData: ""
+        roomData: "",
+        message: ""
     };
 
 
@@ -93,11 +96,40 @@ class LiveGameRoom extends React.Component{
             .then(rooms => this.setState({ rooms: rooms }))
             .then(x => this.setState({ activeRoom: this.props.room_id }))
             .then(y => {
+                console.log("testing 123", y, this.state, this.state.rooms)
                 if (this.state.rooms) {
-                    let roomData = this.state.rooms.find(room => room.id === this.state.activeRoom)
-                    this.setState({ roomData: roomData })
+
+                    let roomDataX = this.state.rooms.find(room => room.id === this.state.activeRoom)
+                    this.setState({ roomData: roomDataX })
                 }
             });
+    }
+
+    sendMessage = () => {
+        fetch('http://localhost:3000/messages', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: localStorage.user_id,
+                room_id: this.props.room_id,
+                message_content: this.state.message
+            })
+        })
+    }
+
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    displayMessages = () => {
+        console.log(this.state.roomData)
+        if(this.state.roomData){
+            //find username first
+            return this.state.roomData.messages.map(message => <ChatBubble {...message}></ChatBubble>)
+        }
     }
 
     render() {
@@ -106,7 +138,22 @@ class LiveGameRoom extends React.Component{
     return(
         <div>
             {/* { this.state.roomData && this.state.roomData.users.map(user => <div> {user.name}</div>)} */}
-            <button onClick={this.clickToAddFakePlayer}>Add Fake Player</button>
+            
+            <Paper style={{ height: 200, backgroundColor: "#7eccb2"}}>
+                <div style={{height: 158, overflow: "auto"}}> 
+                    {/* MESSAGE PANEL */}
+                    {this.displayMessages()}
+                </div>
+                <div style={{height: 40, backgroundColor: "#ffffff", position: "relative"}}>
+                    <div style={{width: 338}}>
+                        <Input fullWidth onChange={this.handleChange} name="message"> </Input>
+                    </div>
+                    <Button onClick={this.sendMessage} variant="contained" color="primary" style={{position: "relative", bottom: 30, left: 340}}>Send</Button>
+                </div>
+                
+
+                {/* <button onClick={this.clickToAddFakePlayer}>Send</button> */}
+            </Paper>
         </div>
     )
 }

@@ -83,12 +83,12 @@ function GameRoom(props) {
     const fetcher = () => {
         fetch(`http://localhost:3000/rooms/${props.match.params.id}`)
             .then(resp => resp.json())
-            .then(body => {
-                setGame(body)
-                console.log("body", body)
-                setPrompt(`${body.users[body.users.length - 1].name} has entered the game!`)
-                setOpen(true)
-            })
+            // .then(body => {
+            //     // setGame(body)
+            //     // console.log("body", body)
+            //     // setPrompt(`${body.users[body.users.length - 1].name} has entered the game!`)
+            //     // setOpen(true)
+            // })
     }
 
     const handleClose = () => {
@@ -146,6 +146,12 @@ function GameRoom(props) {
                     {game.users && game.users.length < game.maxplayers && <Typography variant="body1">Waiting for Players</Typography>}
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
                     {<Button variant="contained" color="primary"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank"> Join Game </a></Button>}
+
+
+
+
+
+                    <LiveGameRoom room_id={game.id} fetch_room_data={fetcher} />
                 </Grid>
             </Grid>
             <br></br>
@@ -157,7 +163,6 @@ function GameRoom(props) {
                     {prompt}
                 </Alert>
             </Snackbar>
-            <LiveGameRoom room_id={game.id} fetch_room_data={fetcher}/>
         </div>
     )
 }
