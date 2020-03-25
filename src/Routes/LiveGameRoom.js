@@ -22,7 +22,7 @@ class LiveGameRoom extends React.Component{
     }
 
     createChatRoomWebsocketConnection = (room) => {
-        console.log("room test", room)
+        // console.log("room test", room)
         // Creates the new WebSocket connection.
         let socket = new WebSocket("ws://localhost:3000/cable");
         // When the connection is first created, this code runs subscribing the client to a specific chatroom stream in the ChatRoomChannel.
@@ -96,7 +96,7 @@ class LiveGameRoom extends React.Component{
             .then(rooms => this.setState({ rooms: rooms }))
             .then(x => this.setState({ activeRoom: this.props.room_id }))
             .then(y => {
-                console.log("testing 123", y, this.state, this.state.rooms)
+                // console.log("testing 123", y, this.state, this.state.rooms)
                 if (this.state.rooms) {
 
                     let roomDataX = this.state.rooms.find(room => room.id === this.state.activeRoom)
@@ -118,6 +118,7 @@ class LiveGameRoom extends React.Component{
                 message_content: this.state.message
             })
         })
+        this.setState({message: ""})
     }
 
     handleChange = (e) => {
@@ -125,28 +126,40 @@ class LiveGameRoom extends React.Component{
     }
 
     displayMessages = () => {
-        console.log(this.state.roomData)
+        // console.log(this.state.roomData)
         if(this.state.roomData){
             //find username first
             return this.state.roomData.messages.map(message => <ChatBubble {...message}></ChatBubble>)
         }
     }
 
+    scrollToBottom = () => {
+        this.message_panel.scrollTop = this.message_panel.scrollHeight
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
     render() {
         this.createChatRoomWebsocketConnection(this.props.room_id)
-        console.log(this.props.room_id)
+        // console.log(this.props.room_id)
     return(
         <div>
             {/* { this.state.roomData && this.state.roomData.users.map(user => <div> {user.name}</div>)} */}
             
             <Paper style={{ height: 200, backgroundColor: "#7eccb2"}}>
-                <div style={{height: 158, overflow: "auto"}}> 
+                <div style={{ height: 158, overflow: "auto" }} ref={(el) => { this.message_panel = el; }}> 
                     {/* MESSAGE PANEL */}
                     {this.displayMessages()}
                 </div>
                 <div style={{height: 40, backgroundColor: "#ffffff", position: "relative"}}>
                     <div style={{width: 338}}>
-                        <Input fullWidth onChange={this.handleChange} name="message"> </Input>
+                        <Input fullWidth onChange={this.handleChange} value={this.state.message} name="message"> </Input>
                     </div>
                     <Button onClick={this.sendMessage} variant="contained" color="primary" style={{position: "relative", bottom: 30, left: 340}}>Send</Button>
                 </div>

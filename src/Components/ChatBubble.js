@@ -21,17 +21,25 @@ export default function ChatBubble(props){
 
 
     const [usersMessage, setUsersMessage] = useState(classes.otherPlayersMessage);
+    const [userName, setUserName] = useState("");
 
     useEffect(() => {
         //fetch specific game details
-        if (props.user_id == localStorage.user_id){
-            setUsersMessage(classes.usersMessage)
-        }
-    }, []);
+        
+        // console.log("props", props)
+        fetch(`http://localhost:3000/users/${props.user_id}`)
+        .then(resp => resp.json())
+        .then(body => {
+            // console.log("body", body)
+            setUserName(body.name)})
+        .then(b => {
+        if (props.user_id == localStorage.user_id) {
+        setUsersMessage(classes.usersMessage)
+    }})}, []);
 
 return(
     <Paper className={usersMessage}>
-        {props.message_content}
+        {userName}: {props.message_content}
     </Paper>
 )
 

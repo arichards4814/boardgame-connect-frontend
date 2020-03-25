@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import LiveGameRoom from './LiveGameRoom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import RoomInfoCard from '../Components/RoomInfoCard';
+import TopNav from '../Components/TopNav'
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -13,7 +15,6 @@ function Alert(props) {
 
 function GameRoom(props) {
 
-    console.log(props.match.params.id)
 
     const [game, setGame] = useState("");
     const [open, setOpen] = React.useState(false);
@@ -83,12 +84,13 @@ function GameRoom(props) {
     const fetcher = () => {
         fetch(`http://localhost:3000/rooms/${props.match.params.id}`)
             .then(resp => resp.json())
-            // .then(body => {
-            //     // setGame(body)
-            //     // console.log("body", body)
-            //     // setPrompt(`${body.users[body.users.length - 1].name} has entered the game!`)
-            //     // setOpen(true)
-            // })
+            .then(body => {
+                // this is where the magic happens, but it also breaks... lol
+                setGame(body)
+                // console.log("body", body)
+                // setPrompt(`${body.users[body.users.length - 1].name} has entered the game!`)
+                // setOpen(true)
+            })
     }
 
     const handleClose = () => {
@@ -96,6 +98,9 @@ function GameRoom(props) {
     }
 
     const joinGame = () => {
+
+        //if there is no host, make this player the host.
+        if (game.users.length > 0){
         fetch('http://localhost:3000/userrooms', {
             method: "POST",
             headers: {
@@ -106,27 +111,62 @@ function GameRoom(props) {
                 user_id: localStorage.user_id,
                 room_id: game.id
             })
-        })
+        })} else {
+            //make user the host
+            fetch('http://localhost:3000/userrooms', {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: localStorage.user_id,
+                    room_id: game.id
+                })
+            }).then(
+                fetch(`http://localhost:3000/rooms/${game.id}`,{
+                    method: "PATCH",
+                    headers: {
+                        'content-type': 'application/json',
+                        'accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...game, host_id: localStorage.user_id
+                    })
+                }
+                ).then(resp=> resp.json())
+                .then("THIS IS IT", console.log)
+            )
+        }
     }
 
     const leaveGame = () => {
         console.log("will have to do a delete here")
+
+        // first fetch user_rooms, 
+        // then check if they include this room id
+        // then find this specific persons user_room
+        fetch('http://localhost:3000/userrooms')
+            .then(resp => resp.json())
+            .then(body => {
+                let foundUserRoom = body.find(room => room.room_id === game.id)
+                console.log("FOUND USER ROOM:",foundUserRoom)
+                fetch(`http://localhost:3000/userrooms/${foundUserRoom.id}`, {
+                    method: "DELETE",
+                })
+            })
     }
 
     console.log("game", game)
 
     return(
-        <div style={{marginTop: 30}}>
+        <div style={{marginTop: 80}}>
+            <TopNav {...props}/>
             <Grid container spacing={4}>
-                <Grid item md={2}>
-                    
+                <Grid item md={1}>
                 </Grid>
-                <Grid item md={2}>
-                    <Typography variant={"h4"}>Room:</Typography>
-                    <Typography variant={"h5"}>{game.name}</Typography>
-                    <Typography variant={"body1"}>Max Players: {game.maxplayers}</Typography>
-                    <Typography variant={"body1"}>Current Players: {game.users && game.users.length} </Typography>
-                    <img src={game.boardgame && game.boardgame.image_url} style={{height: 150}}></img>
+                <Grid item md={3}>
+                    <RoomInfoCard {...game} leaveGame={leaveGame} userInGame={userInGame}/>
                 </Grid>
                 <Grid item>
                     {findHost()}
@@ -135,21 +175,11 @@ function GameRoom(props) {
                     {/* Need to go through this lol*/}
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography variant="h5" > Host Panel:  </Typography>}
                     {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography > You are currently the host.  </Typography>}
-                    {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Button variant="contained" color="primary"> Generate Zoom Link </Button>}
                     {game.users && game.users.length < game.maxplayers && <Typography variant="body1">Waiting for Players</Typography>}
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
                     {!userInGame() && <Button variant="contained" color="primary" onClick={joinGame}>Join Game</Button>}
-                    {userInGame() && <Button variant="contained" color="primary" onClick={leaveGame}>Leave Game</Button>}
-                    {!userInGame() && <Button variant="contained" color="primary"><a href="https://us04web.zoom.us/j/763249912"> Join Game </a></Button>}
-                    {/* {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Button variant="contained" color="primary"> Generate Zoom Link </Button>} */}
-                    {/* {game.users && game.users.find(user => user.id === localStorage.user_id) ? null : <Button variant="contained" color="primary"> Join Game </Button>} */}
-                    {game.users && game.users.length < game.maxplayers && <Typography variant="body1">Waiting for Players</Typography>}
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
-                    {<Button variant="contained" color="primary"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank"> Join Game </a></Button>}
-
-
-
-
+                    {<Button variant="contained"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank"> Join Zoom Room</a></Button>}
 
                     <LiveGameRoom room_id={game.id} fetch_room_data={fetcher} />
                 </Grid>

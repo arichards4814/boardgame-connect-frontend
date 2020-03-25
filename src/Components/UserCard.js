@@ -26,6 +26,11 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 345,
         backgroundColor: "#b2b5c2"
     },
+    currentPlayer: {
+        minWidth: 345,
+        maxWidth: 345,
+        backgroundColor: "#b985ed"
+    },
 }));
 
 export default function UserCard(props){
@@ -36,8 +41,14 @@ export default function UserCard(props){
 
     useEffect(() => { 
         setType(props.type)
+        // console.log("props", props)
         if (type === "player"){
-            setCurrentStyle(classes.player)
+            if (props.player && props.player.id === parseInt(localStorage.user_id)){
+                //set to the current user color
+                setCurrentStyle(classes.currentPlayer)
+            } else {
+                setCurrentStyle(classes.player)
+            }
         } else if (type === "host"){
             setCurrentStyle(classes.host)
         } else {
@@ -54,7 +65,7 @@ export default function UserCard(props){
                 title={"user"}
             />
             <CardContent>
-                <Typography variant="h6" >{props.type === "host" ? "Host" : "Player"}</Typography>
+                <Typography variant="h6" >{props.type === "host" ? "Host" : "Player"} {currentStyle === classes.currentPlayer && "(You)"}</Typography>
                 <Typography variant="h5" >{props.player ? props.player.name : "No player yet."}</Typography>
             </CardContent>
         </Card>
