@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box';
-import TopNa from "../Components/TopNav.js"
+import TopNav from "../Components/TopNav.js"
 
 
 const useStylesCard = makeStyles({
@@ -26,31 +26,38 @@ const useStylesCard = makeStyles({
   },
 });
 
+let roomsArr = []
+
 function OpenGameRooms(props) {
     const [boardgames, setBoardgames] = useState([]);
-    const [fetchedRooms, setRooms] = useState([]);
+    const [fetchedRooms, setFetchedRooms] = useState([]);
   
       useEffect(() => {
-          fetch(`http://localhost:3000/boardgames`)
+        fetch(`http://localhost:3000/rooms`)
           .then(response => response.json())
           .then(response => {
-            setBoardgames(response)
-          })
-           fetch(`http://localhost:3000/rooms`)
-          .then(response => response.json())
-          .then(response => {
-            setRooms(response)
-})}, []); 
+            setFetchedRooms(response)
+            console.log(response)
+            roomsArr = response
+        }).then(fetch(`http://localhost:3000/boardgames`)
+        .then(response => response.json())
+        .then(response => {
+          setBoardgames(response)
+        }))
+      }, 
+    []); 
  
 const handleJoinClick = (event) => {
   props.history.push(`/rooms/${event.target.parentNode.id}`)
 }
+
+
   
 
 
   return (
     <div>
-    <TopNa history={props.history}/>
+    <TopNav history={props.history}/>
       <Container maxWidth="sm" >
            <h1 id="open-game-room-h1">Open game rooms</h1>
            {/* <h5 id="open-game-room-h5">Based on the boardgames you own:</h5> */}
@@ -63,8 +70,8 @@ const handleJoinClick = (event) => {
                         {<h4 className="margin-left-5"> Room Name: {room.name}</h4>}
                         <h6 className="zoom-url"> Zoom url: {room.zoom_url} </h6> 
                         <h5 className="margin-left-5"> Users:</h5>
-                        <ul> 
-                            {/* {(fetchedRooms.find(fetchRoom => fetchRoom.id == room.id)).users.map( user => <h6 className="user-list" key={user.id}> {user.name} </h6> )} */}
+                        <ul>       
+                            {(roomsArr.find(fetchRoom => fetchRoom.id == room.id)).users.map( user => <h6 className="user-list" key={user.id}> {user.name} </h6> )}
                         </ul>
                       </CardContent>
                       <CardActions>
