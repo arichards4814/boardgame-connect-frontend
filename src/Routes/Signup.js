@@ -78,8 +78,8 @@ export default function Signup(props){
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="sm" >
-                <Paper style={{ marginTop: 20}}>
-                    <Typography component="div" style={{ margin: 10, height: '90vh', textAlign: "center"}}>
+                <Paper >
+                    <Typography component="div" style={{ margin: 10, height: '100vh', textAlign: "center"}}>
                         <div style={{textAlign: "center"}}>
                             <img src={"./images/Logo_BW.png"} className="main-logo" />
                         </div>
@@ -89,11 +89,7 @@ export default function Signup(props){
                         <Typography variant="h5" component="h2">
                             First, let's set up your account:
                         </Typography>
-                        <Typography variant="h6" component="h2">
-                            Or login with Google or Facebook
-                        </Typography>
                         {/* <GoogleLoginButton /> */}
-                        <Button onClick={() => props.history.push("/login")} variant="contained" color="default" style={{ margin: 5}}>Login</Button> 
                         <form onSubmit={handleSubmit} noValidate autoComplete="off">
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="username"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Email Address" name="email"/>
@@ -101,7 +97,8 @@ export default function Signup(props){
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Image URL" name="img_url"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Password" name="password"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Confirm Password" name="confirmPassword"/>
-                            <Button variant="contained" color="primary" type="submit" style={{ margin: 10 }}> Submit </Button>
+                            <Button onClick={() => props.history.push("/login")} variant="contained" color="default" style={{ margin: 5 }}>Already Have An Account</Button> or <Button variant="contained" color="primary" type="submit" style={{ margin: 10 }}> Submit </Button>
+                            
                         </form>
                     </Typography>
                     {errors ? <Typography>{errors.errors}</Typography> : ""}

@@ -133,6 +133,8 @@ function GameRoom(props) {
     const leaveGame = () => {
         console.log("will have to do a delete here")
 
+        //if the player who is leaving is the host, delete the room.
+        
         // first fetch user_rooms, 
         // then check if they include this room id
         // then find this specific persons user_room
@@ -163,7 +165,8 @@ function GameRoom(props) {
                 })
             })
             //this needs to change host to null as well
-        // props.history.push("/")
+        props.history.push("/")
+
     }
 
    const checkHost = () => {
@@ -184,7 +187,7 @@ function GameRoom(props) {
                 </Grid>
                 <Grid item>
                     {console.log(userInGame)}
-                    {checkHost() && <Chip label="You are the host" color="primary"/>}
+                    {checkHost() && userInGame() && <Chip label="You are the host" color="primary"/>}
                     {!userInGame() && <Chip label="You are currently viewing this game as guest." />}
                     {!checkHost() && userInGame() && <Chip label="You are currently in this room." color="secondary"/>}
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
