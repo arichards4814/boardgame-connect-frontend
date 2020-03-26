@@ -108,7 +108,8 @@ h1, h2, h3, h4, h5 ,h6 {
 /* } */
 
 #owned-games-box {
-  margin-bottom: 10%;
+  margin-bottom: 4%;
+  margin-top: 4%;
 }
 
 .home-game-images {
@@ -117,7 +118,7 @@ h1, h2, h3, h4, h5 ,h6 {
   margin-right: 5%;
   cursor: pointer;
   transition: transform .2s; /* Animation */
-  margin-bottom: 7%;
+  margin-bottom: 3%;
 }
 
 .home-game-images:hover {
