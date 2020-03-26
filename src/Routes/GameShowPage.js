@@ -21,19 +21,41 @@ function GameShowPage(props) {
 
     return (
     <div>
-    {/* <TopNav /> */}
-        <div className="wrapper">     
-            <div>
-                sussssususjjsjsjjsjsjjsjs
+    <TopNav history={props.history}/>
+        <div className="wrapper"> 
+            <div className="box box1">
+                <h1 style={{marginLeft: "10%"}}>{game.name}</h1> 
+                <p style={{marginLeft: "10%", marginRight: "10%"}}>{game.description_preview}</p>
+            </div> 
+            <div className="box box2">
+                <img src={game.image_url} />
+            </div>
+            <div className="box3">
+                <a href={`https://www.google.com/search?psb=1&tbm=shop&q=${game.name}`}> Check Prices for this Game </a>
             </div>
             <div>
-                blehhhh
-            </div>
-            <div>
-                sussssususjjsjsjjsjsjjsjs
-            </div>
-            <div>
-                blehhhh
+                <ul>
+                <li> Minimum Amount of Players</li>
+                    <ul>
+                        <li>{game.min_players}</li>
+                    </ul>
+                    <li> Max Amount of Players</li>
+                    <ul>
+                        <li>{game.max_players}</li>
+                    </ul>
+                    <li> Minimum Playtime </li>
+                    <ul>
+                        <li>{game.min_playtime}</li>
+                    </ul>
+                    <li> Minimum Playtime </li>
+                    <ul>
+                        <li>{game.min_playtime}</li>
+                    </ul>
+                    <li> Year Published </li>
+                    <ul>
+                        <li>{game.year_published}</li>
+                    </ul>
+                </ul>
             </div>
         </div>
     </div>

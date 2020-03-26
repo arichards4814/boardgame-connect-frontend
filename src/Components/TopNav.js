@@ -26,9 +26,10 @@ import HomeIcon from '@material-ui/icons/Home';
             <Toolbar>
                     {/* <img src="./images/Logo_BW.png" style={{ height: 40 }}></img> */}
             <Typography variant="h6" className={classes.title}>
-                BoardGame Connect
+            <Button style={{marginLeft: "3%"}} color="inherit" onClick={() => props.history.push("/")} > BoardGame Connect </Button>
             </Typography>
-            <Button color="inherit" onClick={() => props.history.push("/")}> < HomeIcon /> </Button>
+            <Button color="inherit"> About Us </Button>
+            <Button color="inherit"> FAQ </Button>
             </Toolbar>
         </AppBar>
         )
