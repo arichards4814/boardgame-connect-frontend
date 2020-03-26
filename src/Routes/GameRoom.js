@@ -155,6 +155,7 @@ function GameRoom(props) {
                     method: "DELETE",
                 })
             })
+        props.history.push("/")
     }
 
     console.log("game", game)
