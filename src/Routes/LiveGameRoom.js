@@ -1,11 +1,16 @@
 import React from 'react';
 // import { ActionCable } from 'react-actioncable-provider';
-import { API_ROOT } from '../Constants';
 import Paper from '@material-ui/core/Paper'
 import { Button, Input } from '@material-ui/core';
-import ChatBubble from '../Components/ChatBubble'
+import ChatBubble from '../Components/ChatBubble';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 // import Cable from '../Components/Cable';
 
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class LiveGameRoom extends React.Component{
 
@@ -13,7 +18,10 @@ class LiveGameRoom extends React.Component{
         rooms: [],
         activeRoom: null,
         roomData: "",
-        message: ""
+        message: "",
+        open: false,
+        prompt: "",
+        severity: "info"
     };
 
 
@@ -22,10 +30,11 @@ class LiveGameRoom extends React.Component{
     }
 
     createChatRoomWebsocketConnection = (room) => {
-        // console.log("room test", room)
+
         // Creates the new WebSocket connection.
         let socket = new WebSocket("ws://localhost:3000/cable");
         // When the connection is first created, this code runs subscribing the client to a specific chatroom stream in the ChatRoomChannel.
+        
         socket.onopen = function (event) {
             console.log('WebSocket is connected.');
             const msg = {
@@ -42,8 +51,9 @@ class LiveGameRoom extends React.Component{
         socket.onclose = function (event) {
             console.log('WebSocket is closed.');
         };
+
         // When a message is received through the websocket, this code will run.
-        socket.onmessage =  (event) => {
+        socket.onmessage = (event) => {
             const response = event.data;
             const msg = JSON.parse(response);
 
@@ -67,7 +77,7 @@ class LiveGameRoom extends React.Component{
         socket.onerror = function (error) {
             console.log('WebSocket Error: ' + error);
         };
-
+        
     }
 
     clickToAddFakePlayer = () => {
@@ -86,26 +96,27 @@ class LiveGameRoom extends React.Component{
 
     //////////
 
-    componentDidMount = () => {
-        this.fetcher()
-    };
-
     fetcher = () => {
-        fetch(`${API_ROOT}/rooms`)
-            .then(res => res.json())
-            .then(rooms => this.setState({ rooms: rooms }))
+        console.log("in fetcher", this.props)
+        fetch(`http://localhost:3000/rooms`)
+            .then(resp => resp.json())
+            .then(newrooms => {
+                this.setState({ rooms: newrooms })})
+            .then(console.log("rooms",this.state.rooms))
             .then(x => this.setState({ activeRoom: this.props.room_id }))
             .then(y => {
-                // console.log("testing 123", y, this.state, this.state.rooms)
                 if (this.state.rooms) {
-
-                    let roomDataX = this.state.rooms.find(room => room.id === this.state.activeRoom)
+                    let roomDataX = this.state.rooms.find(room => parseInt(room.id) === parseInt(this.props.room_id))
+                    
                     this.setState({ roomData: roomDataX })
                 }
-            });
+            }).then(this.createChatRoomWebsocketConnection(this.props.room_id))
+           ;
     }
 
+
     sendMessage = () => {
+        console.log("room id in sendMessage", this.props.room_id)
         fetch('http://localhost:3000/messages', {
             method: "POST",
             headers: {
@@ -118,6 +129,7 @@ class LiveGameRoom extends React.Component{
                 message_content: this.state.message
             })
         })
+
         this.setState({message: ""})
     }
 
@@ -126,10 +138,10 @@ class LiveGameRoom extends React.Component{
     }
 
     displayMessages = () => {
-        // console.log(this.state.roomData)
+        console.log("room data", this.state.roomData)
         if(this.state.roomData){
             //find username first
-            return this.state.roomData.messages.map(message => <ChatBubble {...message}></ChatBubble>)
+            return this.state.roomData.messages.map((message, index) => <ChatBubble key={index} {...message}></ChatBubble>)
         }
     }
 
@@ -138,22 +150,47 @@ class LiveGameRoom extends React.Component{
     }
 
     componentDidMount() {
+        this.fetcher()
         this.scrollToBottom();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         this.scrollToBottom();
+        console.log("prev preState", prevProps.roomData)
+
+        console.log("prev preProps", prevProps)
+
+        console.log("roomdata", this.state.roomData)
+        if (prevState.roomData && prevState.roomData.users.length < this.state.roomData.users.length){
+            this.setState({
+                open: true,
+                prompt: "A new player has entered the room.",
+                severity: "info"
+            })
+        } else if (prevState.roomData && prevState.roomData.users.length > this.state.roomData.users.length){
+            this.setState({
+                open: true,
+                prompt: "A player has left the room.",
+                severity: "warning"
+            })
+        }
+    }
+
+
+    handleClose = () => {
+        this.setState({
+            open: false
+        })
     }
 
     render() {
-        this.createChatRoomWebsocketConnection(this.props.room_id)
-        // console.log(this.props.room_id)
+        console.log(this.state.rooms)
     return(
         <div>
             {/* { this.state.roomData && this.state.roomData.users.map(user => <div> {user.name}</div>)} */}
             
-            <Paper style={{ height: 200, backgroundColor: "#7eccb2"}}>
-                <div style={{ height: 158, overflow: "auto" }} ref={(el) => { this.message_panel = el; }}> 
+            <Paper style={{ height: 210, backgroundColor: "#7eccb2"}}>
+                <div style={{ height: 170, overflow: "auto" }} ref={(el) => { this.message_panel = el; }}> 
                     {/* MESSAGE PANEL */}
                     {this.displayMessages()}
                 </div>
@@ -161,12 +198,17 @@ class LiveGameRoom extends React.Component{
                     <div style={{width: 338}}>
                         <Input fullWidth onChange={this.handleChange} value={this.state.message} name="message"> </Input>
                     </div>
-                    <Button onClick={this.sendMessage} variant="contained" color="primary" style={{position: "relative", bottom: 30, left: 340}}>Send</Button>
+                    <Button onClick={this.sendMessage} variant="contained" color="primary" style={{position: "relative", top: 28, left: 240, width: 90}}>Send</Button>
                 </div>
                 
 
                 {/* <button onClick={this.clickToAddFakePlayer}>Send</button> */}
             </Paper>
+            <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}>
+                <Alert onClose={this.handleClose} severity={this.state.severity}>
+                    {this.state.prompt}
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

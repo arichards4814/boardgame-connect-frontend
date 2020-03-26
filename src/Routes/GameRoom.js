@@ -4,21 +4,15 @@ import Grid from '@material-ui/core/Grid';
 import UserCard from '../Components/UserCard'
 import Button from '@material-ui/core/Button';
 import LiveGameRoom from './LiveGameRoom';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 import RoomInfoCard from '../Components/RoomInfoCard';
 import TopNav from '../Components/TopNav'
+import Chip from '@material-ui/core/Chip';
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 function GameRoom(props) {
 
 
     const [game, setGame] = useState("");
-    const [open, setOpen] = React.useState(false);
-    const [prompt, setPrompt] = React.useState("");
 
 
     useEffect(() => {
@@ -60,6 +54,7 @@ function GameRoom(props) {
     }
 
     const findHost = () => {
+        console.log("current users", game.users)
         if (game.users){
             let host = game.users.find(user => user.id === game.host_id)
             return <UserCard type="host" player={host} />
@@ -88,14 +83,9 @@ function GameRoom(props) {
                 // this is where the magic happens, but it also breaks... lol
                 setGame(body)
                 // console.log("body", body)
-                // setPrompt(`${body.users[body.users.length - 1].name} has entered the game!`)
-                // setOpen(true)
             })
     }
 
-    const handleClose = () => {
-        setOpen(false)
-    }
 
     const joinGame = () => {
 
@@ -149,22 +139,42 @@ function GameRoom(props) {
         fetch('http://localhost:3000/userrooms')
             .then(resp => resp.json())
             .then(body => {
-                let foundUserRoom = body.find(room => room.room_id === game.id)
+                console.log("userroom body", body)
+                let foundUserRoom = {}
+                body.forEach(room => {
+
+                    console.log("room id", room.room_id)
+                    console.log("game", game.id)
+                    console.log("user id", room.user_id)
+                    console.log("local storange", localStorage.user_id)
+                    if (parseInt(room.room_id) === parseInt(game.id)){
+                        console.log("Match made", room.room_id, game.id)
+                        if (parseInt(localStorage.user_id) === parseInt(room.user_id)){
+
+                            console.log("Match made", localStorage.user_id, room.user_id)
+                            console.log(room)
+                            foundUserRoom = room
+                        }
+                    } 
+                })
                 console.log("FOUND USER ROOM:",foundUserRoom)
                 fetch(`http://localhost:3000/userrooms/${foundUserRoom.id}`, {
                     method: "DELETE",
                 })
             })
-        props.history.push("/")
+            //this needs to change host to null as well
+        // props.history.push("/")
     }
 
-    console.log("game", game)
+   const checkHost = () => {
+       return parseInt(game.host_id) === parseInt(localStorage.user_id)
+   }
 
     return(
         <div style={{marginTop: 80}}>
             <TopNav {...props}/>
-            <Grid container spacing={4}>
-                <Grid item md={1}>
+            <Grid container spacing={2}>
+                <Grid item md={1} style={{marginLeft: 70}}>
                 </Grid>
                 <Grid item md={3}>
                     <RoomInfoCard {...game} leaveGame={leaveGame} userInGame={userInGame}/>
@@ -173,27 +183,21 @@ function GameRoom(props) {
                     {findHost()}
                 </Grid>
                 <Grid item>
-                    {/* Need to go through this lol*/}
-                    {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography variant="h5" > Host Panel:  </Typography>}
-                    {parseInt(game.host_id) === parseInt(localStorage.user_id) && <Typography > You are currently the host.  </Typography>}
-                    {game.users && game.users.length < game.maxplayers && <Typography variant="body1">Waiting for Players</Typography>}
+                    {console.log(userInGame)}
+                    {checkHost() && <Chip label="You are the host" color="primary"/>}
+                    {!userInGame() && <Chip label="You are currently viewing this game as guest." />}
+                    {!checkHost() && userInGame() && <Chip label="You are currently in this room." color="secondary"/>}
                     {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
+                    {game.users && game.users.length === game.maxplayers && !userInGame() && <Button variant="contained" color="primary" onClick={joinGame}>Join Game</Button>}
                     {!userInGame() && <Button variant="contained" color="primary" onClick={joinGame}>Join Game</Button>}
-                    {game.users && game.users.length === game.maxplayers && <Typography variant="body1">Game Full</Typography>}
-                    {<Button variant="contained"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank"> Join Zoom Room</a></Button>}
-
-                    <LiveGameRoom room_id={game.id} fetch_room_data={fetcher} />
+                    <LiveGameRoom room_id={props.match.params.id} fetch_room_data={fetcher} /> 
+                    {userInGame() && <Button variant="contained"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank"> Join Zoom Room</a></Button>}
                 </Grid>
             </Grid>
             <br></br>
             <Grid container spacing={2} justify="center">
                 {renderPlayers()}
             </Grid>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="info">
-                    {prompt}
-                </Alert>
-            </Snackbar>
         </div>
     )
 }

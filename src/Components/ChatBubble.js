@@ -6,12 +6,17 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     usersMessage: {
         backgroundColor: "#b985ed",
+        padding: 10,
         textAlign: "right",
-        paddingRight: 10
+        display: "inline-block",
+        float: "right",
+        margin: 1
     },
     otherPlayersMessage: {
         backgroundColor: "#85dfed",
-        paddingLeft: 10
+        padding: 10,
+        display: "inline-block",
+        margin: 1
     }
 }));
 
@@ -24,9 +29,7 @@ export default function ChatBubble(props){
     const [userName, setUserName] = useState("");
 
     useEffect(() => {
-        //fetch specific game details
-        
-        // console.log("props", props)
+        //fetch specific game detail
         fetch(`http://localhost:3000/users/${props.user_id}`)
         .then(resp => resp.json())
         .then(body => {
@@ -38,9 +41,12 @@ export default function ChatBubble(props){
     }})}, []);
 
 return(
+    <div>
     <Paper className={usersMessage}>
         {userName}: {props.message_content}
     </Paper>
+    <div style={{height: 10}}></div>
+    </div>
 )
 
 }
