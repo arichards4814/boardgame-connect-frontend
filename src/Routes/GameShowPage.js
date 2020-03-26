@@ -3,7 +3,6 @@ import TopNav from "../Components/TopNav.js"
 
 function GameShowPage(props) {
 
-    console.log(localStorage)
 
     const [game, setGame] = useState("");
 
@@ -13,7 +12,6 @@ function GameShowPage(props) {
             .then(resp => resp.json())
                 .then(body => {
                     setGame(body)
-                    console.log(body)
             })
         }, 
     []);
