@@ -11,6 +11,7 @@ import GameRoom from './Routes/GameRoom'
 import GameShowPage from './Routes/GameShowPage'
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import LiveGameRoom from './Routes/LiveGameRoom'
+import AboutUs from './Routes/AboutUs'
 
 class App extends React.Component {
 
@@ -67,9 +68,10 @@ render(){
     <Route path="/addgames" component={AddGames} />
     <Route path="/opengamerooms" component={OpenGameRooms} />
     <Route path="/hostagame" component={HostAGame} />
-      <Route path="/livegameroom" component={LiveGameRoom} />
+    <Route path="/livegameroom" component={LiveGameRoom} />
     <Route path={`/rooms/:id`} render={routerProps => <GameRoom {...routerProps}/>} />
     <Route path={`/boardgames/:id`} render={routerProps => <GameShowPage {...routerProps}/>}  />
+    <Route path="/aboutus" component={AboutUs} />
   </Router>)
 }
 }
