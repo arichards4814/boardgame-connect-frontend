@@ -194,7 +194,7 @@ function GameRoom(props) {
                     {game.users && game.users.length === game.maxplayers && !userInGame() && <Button variant="contained" color="primary" onClick={joinGame}>Join Game</Button>}
                     {!userInGame() && <Button variant="contained" color="primary" onClick={joinGame}>Join Game</Button>}
                     <LiveGameRoom room_id={props.match.params.id} fetch_room_data={fetcher} /> 
-                    {userInGame() && <Button variant="contained"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank"> Join Zoom Room</a></Button>}
+                    {userInGame() && <Button id="game-room-join" variant="contained" color="secondary"><a href={`https://us04web.zoom.us/j/${parseInt(game.zoom_url)}`} target="_blank" style={{color: "white"}}> Join Zoom Room</a></Button>}
                 </Grid>
             </Grid>
             <br></br>
