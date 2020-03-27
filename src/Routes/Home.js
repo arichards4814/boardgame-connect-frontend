@@ -64,6 +64,7 @@ function Home(props) {
             <TopNav history={props.history}/>
             <Grid container style={{marginTop: 70}} spacing={3}>
                 <Grid item md={3} align="center" style={{ paddingTop: 60 }}>
+                    {console.log("Hello", user)}
                     <img style={{width: 200}} src={user.img_url && user.img_url.length < 5 ? "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1024px-User_font_awesome.svg.png" : user.img_url}></img>
                     <Typography variant="body2">{user.name}</Typography>
                     <Typography variant="h6">Current Rooms:</Typography>

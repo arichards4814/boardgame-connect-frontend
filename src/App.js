@@ -12,6 +12,7 @@ import GameShowPage from './Routes/GameShowPage'
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import LiveGameRoom from './Routes/LiveGameRoom'
 import AboutUs from './Routes/AboutUs'
+import { Redirect } from "react-router-dom"
 
 class App extends React.Component {
 
@@ -56,21 +57,32 @@ logout = () => {
   })
 }
 
+userLoggedIn = () => {
+  //authed
+  if (localStorage.user_id){
+    return true
+  } else {
+    return false
+  }
+
+}
+
+
+
 //here check if logged in on all pages and route accordingly
 
 render(){
   console.log("current user", this.state.currentUser)
   return (
   <Router>
-    <Route exact path="/" render={({ history }) => <Home history={history}  user={this.state.currentUser} logout={this.logout}/>} />
+      <Route exact path="/" render={({ history }) => this.userLoggedIn() ?  <Home history={history} user={this.state.currentUser} logout={this.logout} /> : <Redirect to="/signup"></Redirect>} />
     <Route path="/signup" render={({ history}) => <Signup history={history} setUser={this.setUser}/>} />
     <Route path="/login" render={({ history }) => <Login history={history} setUser={this.setUser}/>} />
-    <Route path="/addgames" component={AddGames} />
-    <Route path="/opengamerooms" component={OpenGameRooms} />
-    <Route path="/hostagame" component={HostAGame} />
-    <Route path="/livegameroom" component={LiveGameRoom} />
-    <Route path={`/rooms/:id`} render={routerProps => <GameRoom {...routerProps}/>} />
-    <Route path={`/boardgames/:id`} render={routerProps => <GameShowPage {...routerProps}/>}  />
+    <Route path={`/addgames`} render={(routerProps) => this.userLoggedIn() ? <AddGames {...routerProps} /> : <Redirect to="/signup" />} />
+    <Route path={`/opengamerooms`} render={(routerProps) => this.userLoggedIn() ? <OpenGameRooms {...routerProps} /> : <Redirect to="/signup" />} />
+    <Route path={`/hostagame`} render={(routerProps) => this.userLoggedIn() ? <HostAGame {...routerProps} /> : <Redirect to="/signup" />} />
+    <Route path={`/rooms/:id`} render={(routerProps) => this.userLoggedIn() ? <GameRoom {...routerProps} /> : <Redirect to="/signup" /> } />
+    <Route path={`/boardgames/:id`} render={(routerProps) => this.userLoggedIn() ? <GameShowPage {...routerProps} /> : <Redirect to="/signup"></Redirect> }  />
     <Route path="/aboutus" component={AboutUs} />
   </Router>)
 }
