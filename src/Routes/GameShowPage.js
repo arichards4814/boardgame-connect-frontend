@@ -30,7 +30,7 @@ function GameShowPage(props) {
                 <img src={game.image_url} />
             </div>
             {/* <div className="box3"> */}
-                <Button variant="contained" color="secondary" className="price-button"><a style={{color: "white"}} href={`https://www.google.com/search?psb=1&tbm=shop&q=${game.name}`} target="_blank"> Check Prices for this Game </a></Button>
+                <Button variant="contained" color="secondary" className="price-button"><a style={{color: "white"}} href={`https://www.google.com/search?psb=1&tbm=shop&q=${game.name}+board+game`} target="_blank"> Check Prices for this Game </a></Button>
             {/* </div> */}
             <div className="li-box">
                 <ul>

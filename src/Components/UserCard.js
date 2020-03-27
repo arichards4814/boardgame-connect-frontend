@@ -55,13 +55,13 @@ export default function UserCard(props){
             setCurrentStyle(classes.noplayer)
         }});
 
-
+        console.log(props)
     return(
         <Card className={currentStyle}>
             <CardMedia
                 className={classes.media}
                 style={{ height: 0, paddingTop: '56.25%' }}
-                image={"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1024px-User_font_awesome.svg.png"}
+                // image={props.player.img_url && props.player.img_url.length < 5 ? "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/user_font_awesome.svg/1024px-User_font_awesome.svg.png" : props.player.img_url}
                 title={"user"}
             />
             <CardContent>
