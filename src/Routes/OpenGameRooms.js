@@ -78,7 +78,7 @@ const handleJoinClick = (event) => {
                         </ul>
                       </CardContent>
                       <CardActions>
-                        <Button id={room.id} size="small" bgcolor="secondary.main" onClick={(event) => handleJoinClick(event)}> Join </Button>
+                        <Button id={room.id} variant="contained" className="join-button" color="secondary" onClick={(event) => handleJoinClick(event)}> Join </Button>
                       </CardActions>
                     </Card>)
                     :
