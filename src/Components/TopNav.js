@@ -28,7 +28,7 @@ import Button from '@material-ui/core/Button';
             <Button style={{marginLeft: "3%"}} color="inherit" onClick={() => props.history.push("/")} > BoardGame Connect </Button>
             </Typography>
             <Button color="inherit" onClick={() => props.history.push("/aboutus")}> About Us </Button>
-            <Button color="inherit"> FAQ </Button>
+            <Button color="inherit"onClick={() => props.history.push("/FAQ")}> FAQ </Button>
             </Toolbar>
         </AppBar>
         )

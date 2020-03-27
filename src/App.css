@@ -66,6 +66,7 @@ h1, h2, h3, h4, h5 ,h6 {
 }
 
 #open-game-room-h5 {
+  
   margin-top: 0%
 }
 
@@ -83,11 +84,12 @@ h1, h2, h3, h4, h5 ,h6 {
 }
 
 #open-game-room-name {
+  color: white; 
   margin-left: 10%;
 }
 
 .open-game-room-box {
-  background: #f1f2f6;
+  background: #778beb;
   width: 100%;
   height: 100%;
 }
@@ -197,4 +199,21 @@ h1, h2, h3, h4, h5 ,h6 {
   margin-top: 25%;
 }
 
+/* FAQs css */
+
+.faqs-header {
+  margin-top: 25%;
+  font-size: 48pt;
+}
+
+.faq-div-card {
+  border-radius: 4%;
+  background: #f1f2f6;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.li-faq {
+  margin-bottom: 10%;
+}
 

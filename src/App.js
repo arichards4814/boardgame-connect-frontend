@@ -12,6 +12,7 @@ import GameShowPage from './Routes/GameShowPage'
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import LiveGameRoom from './Routes/LiveGameRoom'
 import AboutUs from './Routes/AboutUs'
+import FAQ from './Routes/FAQ'
 import { Redirect } from "react-router-dom"
 
 class App extends React.Component {
@@ -84,6 +85,7 @@ render(){
     <Route path={`/rooms/:id`} render={(routerProps) => this.userLoggedIn() ? <GameRoom {...routerProps} /> : <Redirect to="/signup" /> } />
     <Route path={`/boardgames/:id`} render={(routerProps) => this.userLoggedIn() ? <GameShowPage {...routerProps} /> : <Redirect to="/signup"></Redirect> }  />
     <Route path="/aboutus" component={AboutUs} />
+    <Route path="/FAQ" component={FAQ} />
   </Router>)
 }
 }
