@@ -1,8 +1,6 @@
 import React from 'react';
 import GamesContainer from '../Containers/GamesContainer';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import NavFloat from '../Components/NavFloat'
 import TopNav from '../Components/TopNav'
 
 function AddGames(props) {
@@ -19,8 +17,7 @@ function AddGames(props) {
                     
                 </Grid>
                 <Grid item>
-                    {/* <NavFloat goToRooms={() => props.history.push("/opengamerooms")} goHome={() => props.history.push("/")}/> */}
-                </Grid>
+                 </Grid>
             </Grid>
             <GamesContainer />
         </div>

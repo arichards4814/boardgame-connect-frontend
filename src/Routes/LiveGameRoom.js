@@ -121,7 +121,8 @@ class LiveGameRoom extends React.Component{
             method: "POST",
             headers: {
                 'content-type': 'application/json',
-                'accept': 'application/json'
+                'accept': 'application/json',
+                'Authorization': localStorage.user_id
             },
             body: JSON.stringify({
                 user_id: localStorage.user_id,
