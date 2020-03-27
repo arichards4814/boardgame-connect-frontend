@@ -34,10 +34,10 @@ import Grid from '@material-ui/core/Grid'
                             </ul>
                             <li><h1>Who are those guys!?</h1></li>
                             <ul>
-                                <li className="li-faq"><h3>They Software Enigneers helping the world one app at a time! Their Githubs are linked below!</h3></li>
+                                <li><h3>They Software Enigneers helping the world one app at a time! Their Githubs are linked below!</h3></li>
                                     <ul>
                                         <li> <a href="https://github.com/arichards4814" target="_blank"> <h3> Andrew Richards </h3> </a> </li>
-                                        <li> <a href="https://github.com/SatLibRe" target="_blank"> <h3> Miles Higbie </h3> </a> </li>
+                                        <li> <a href="https://github.com/SatLibRe" target="_blank"> <h3 style={{height: "100px"}}> Miles Higbie </h3> </a> </li>
                                     </ul>
                             </ul>
                         </ul>
