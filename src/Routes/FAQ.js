@@ -20,9 +20,9 @@ import Grid from '@material-ui/core/Grid'
                     <div className="faq-div-card">
                         <h1 className="faqs-header"> FAQs </h1>
                         <ul>
-                            <li><h1>Why Board Game Connect!?</h1></li>
+                            <li><h1>What and why Board Game Connect!?</h1></li>
                             <ul>
-                                <li className="li-faq"><h3>Because the world needs this right now!</h3></li>
+                                <li className="li-faq"><h3>A web app that allows people to find other people who have the same boardgames as them and play together over Zoom! Why? Because the world needs this right now!</h3></li>
                             </ul>
                             <li><h1>What games can I play!?</h1></li>
                             <ul>
