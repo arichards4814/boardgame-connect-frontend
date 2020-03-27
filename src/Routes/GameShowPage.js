@@ -27,7 +27,7 @@ function GameShowPage(props) {
                 <p style={{marginLeft: "10%", marginRight: "10%"}}>{game.description_preview}</p>
             </div> 
             <div className="box2" style={{background: "white"}}>
-                <img src={game.image_url} />
+                <img className="game-show-img"src={game.image_url} />
             </div>
             {/* <div className="box3"> */}
                 <Button variant="contained" color="secondary" className="price-button"><a style={{color: "white"}} href={`https://www.google.com/search?psb=1&tbm=shop&q=${game.name}+board+game`} target="_blank"> Check Prices for this Game </a></Button>
