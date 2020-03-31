@@ -1,1 +1,1 @@
-export const URL = `https://quiet-crag-58335.herokuapp.com`
+export const URL = `https://boardgame-connect-backend.herokuapp.com`
