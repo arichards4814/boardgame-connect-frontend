@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import GoogleLoginButton from '../Components/GoogleLogin'
+import URL from "../HostUrl.js"
 
 
 
@@ -38,7 +39,7 @@ export default function Signup(props){
         e.preventDefault()
         if (form.password === form.confirmPassword){
             console.log("submit pressed")
-            fetch('http://localhost:3000/signup', {
+            fetch(`${URL}/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
