@@ -7,9 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import GoogleLoginButton from '../Components/GoogleLogin'
-import URL from "../HostUrl.js"
+import { URL } from "../HostUrl.js"
 
-
+console.log(URL)
 
 const useStyles = makeStyles(theme => ({
     root: {
