@@ -10,6 +10,7 @@ import TopNav from "../Components/TopNav.js"
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import CurrentRoomCard from '../Components/CurrentRoomCard'
+import { URL } from "../HostUrl.js"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,12 +34,12 @@ function Home(props) {
 
 
     useEffect(() => {
-        fetch(`http://localhost:3000/users/${localStorage.user_id}`)
+        fetch(`${URL}/users/${localStorage.user_id}`)
             .then(response => response.json())
             .then(response => {
                 setUserBoardGames(response.boardgames)
                 setUser(response)
-                fetch(`http://localhost:3000/users/${localStorage.user_id}/rooms`)
+                fetch(`${URL}/users/${localStorage.user_id}/rooms`)
                 .then(resp => resp.json())
                 .then(body=> {
                     setUsersCurrentRooms(body)

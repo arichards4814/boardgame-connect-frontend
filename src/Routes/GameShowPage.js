@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TopNav from "../Components/TopNav.js"
 import Button from '@material-ui/core/Button';
+import { URL } from "../HostUrl.js"
 
 function GameShowPage(props) {
 
@@ -9,7 +10,7 @@ function GameShowPage(props) {
 
     useEffect(() => {
         //fetch specific game details
-        fetch(`http://localhost:3000/boardgames/${props.match.params.id}`)
+        fetch(`${URL}/boardgames/${props.match.params.id}`)
             .then(resp => resp.json())
                 .then(body => {
                     setGame(body)

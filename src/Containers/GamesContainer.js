@@ -12,6 +12,8 @@ import ChosenGames from '../Components/ChosenGames'
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import { purple } from '@material-ui/core/colors';
+import { URL } from "../HostUrl.js"
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -95,7 +97,7 @@ export default function GamesContainer(props) {
     const getPopularBoardgames = () => {
         console.log("get pop boardgames")
 
-        fetch("http://localhost:3000/boardgames")
+        fetch(`${URL}/boardgames`)
             .then(resp => resp.json())
             .then(body => setGames(body))
 
