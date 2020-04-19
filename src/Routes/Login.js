@@ -71,7 +71,7 @@ export default function Login(props) {
                         <h1>Welcome to Boardgame Connect</h1>
                         <form onSubmit={handleSubmit} noValidate autoComplete="off">
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Username" name="name" />
-                            <TextField fullWidth margin="dense" required onChange={handleChange} label="Password" name="password" type="password"/>
+                            <TextField fullWidth margin="dense" required onChange={handleChange} type="password" label="Password" name="password" type="password"/>
                             <Button variant="contained" color="primary" type="submit" style={{ margin: 10}}> Login </Button>
                         </form>
                         <Typography variant="subtitle1" component="h2">

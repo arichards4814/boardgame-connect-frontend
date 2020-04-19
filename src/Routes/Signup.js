@@ -9,8 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import GoogleLoginButton from '../Components/GoogleLogin'
 import { URL } from "../HostUrl.js"
 
-console.log(URL)
-
 const useStyles = makeStyles(theme => ({
     root: {
         '& .MuiTextField-root': {
@@ -96,8 +94,8 @@ export default function Signup(props){
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Email Address" name="email"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Zoom ID" name="zoom_id"/>
                             <TextField fullWidth margin="dense" required onChange={handleChange} label="Image URL" name="img_url"/>
-                            <TextField fullWidth margin="dense" required onChange={handleChange} label="Password" name="password"/>
-                            <TextField fullWidth margin="dense" required onChange={handleChange} label="Confirm Password" name="confirmPassword"/>
+                            <TextField fullWidth margin="dense" required onChange={handleChange} type="password" label="Password" name="password"/>
+                            <TextField fullWidth margin="dense" required onChange={handleChange} type="password" label="Confirm Password" name="confirmPassword"/>
                             <Button onClick={() => props.history.push("/login")} variant="contained" color="default" style={{ margin: 5 }}>Already Have An Account</Button> or <Button variant="contained" color="primary" type="submit" style={{ margin: 10 }}> Submit </Button>
                             
                         </form>

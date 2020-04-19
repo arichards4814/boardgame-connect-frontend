@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import HostGameView from '../Components/HostGameView'
+import URL from "../HostUrl.js"
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -83,7 +84,7 @@ function HostAGame(props) {
                         room_id: body.id
                     }
                     
-                    fetch(`http://localhost:3000/userrooms`,{
+                    fetch(`${URL}/userrooms`,{
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
@@ -100,7 +101,7 @@ function HostAGame(props) {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:3000/users/${localStorage.user_id}`)
+        fetch(`${URL}/users/${localStorage.user_id}`)
             .then(response => response.json())
             .then(response => {
                 setUserBoardGames(response.boardgames)

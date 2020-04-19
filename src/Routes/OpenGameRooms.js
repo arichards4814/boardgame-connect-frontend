@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box';
 import TopNav from "../Components/TopNav.js";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { URL } from "../HostUrl.js"
 
 
 const useStylesCard = makeStyles({
@@ -35,12 +36,12 @@ function OpenGameRooms(props) {
     const [loading, setLoading] = useState(true)
   
       useEffect(() => {
-        fetch(`http://localhost:3000/rooms`)
+        fetch(`${URL}/rooms`)
           .then(response => response.json())
           .then(response => {
             setFetchedRooms(response)
             setLoading(false)
-        }).then(fetch(`http://localhost:3000/boardgames`)
+        }).then(fetch(`${URL}/boardgames`)
         .then(response => response.json())
         .then(response => {
           setBoardgames(response)
